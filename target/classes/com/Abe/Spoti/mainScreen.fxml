@@ -13,18 +13,18 @@
       <Label alignment="CENTER" prefHeight="24.0" prefWidth="226.0" style="-fx-border-color: #01d512; -fx-border-width: 4;" text="LISTAS DE REPRODUCCIÓN CREADAS" textAlignment="JUSTIFY" />
       <TableView fx:id="listasPropias" layoutY="26.0" onMouseClicked="#seleccionar" prefHeight="213.0" prefWidth="226.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512;">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="55.200010776519775" text="ID" />
-          <TableColumn fx:id="colNombre" prefWidth="85.60004425048828" text="Nombre" />
-            <TableColumn fx:id="colCreador" prefWidth="85.5999755859375" text="Creador" />
+          <TableColumn fx:id="colId" prefWidth="30.400022983551025" text="ID" />
+          <TableColumn fx:id="colNombre" prefWidth="66.39996337890625" text="Nombre" />
+            <TableColumn fx:id="colCreador" prefWidth="132.00006866455078" text="Descripcion" />
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="226.0" prefHeight="24.0" prefWidth="226.0" style="-fx-border-color: #01d512; -fx-border-width: 4;" text="TODAS LAS LISTAS REPRODUCCION" textAlignment="JUSTIFY" />
       <Label alignment="CENTER" layoutY="240.0" prefHeight="26.0" prefWidth="453.0" style="-fx-border-color: #01d512; -fx-border-width: 4;" text="CANCIONES" textAlignment="JUSTIFY" />
-      <Button fx:id="buttSub" layoutX="490.0" layoutY="185.0" mnemonicParsing="false" onAction="#suscribirse" prefHeight="25.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Suscribirse" />
-      <Button fx:id="buttDesub" layoutX="490.0" layoutY="226.0" mnemonicParsing="false" onAction="#desuscribirse" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Desuscribirse" />
-      <Button fx:id="buttECancion" layoutX="489.0" layoutY="148.0" mnemonicParsing="false" onAction="#editarCancion" style="-fx-border-color: #01d512;" text="Editor Canciones" />
-      <Button fx:id="buttCLista" layoutX="489.0" layoutY="108.0" mnemonicParsing="false" onAction="#editarListas" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Editor listas" />
-      <Button fx:id="buttEditUser" layoutX="490.0" layoutY="266.0" mnemonicParsing="false" onAction="#editarUsuario" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Editar Usuario" />
+      <Button fx:id="buttSub" layoutX="490.0" layoutY="112.0" mnemonicParsing="false" onAction="#suscribirse" prefHeight="25.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Suscribirse" />
+      <Button fx:id="buttDesub" layoutX="490.0" layoutY="152.0" mnemonicParsing="false" onAction="#desuscribirse" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Desuscribirse" />
+      <Button fx:id="buttECancion" layoutX="490.0" layoutY="192.0" mnemonicParsing="false" onAction="#editarCancion" style="-fx-border-color: #01d512;" text="Editor Canciones" />
+      <Button fx:id="buttCLista" layoutX="489.0" layoutY="269.0" mnemonicParsing="false" onAction="#editarListas" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Editor listas" />
+      <Button fx:id="buttEditUser" layoutX="490.0" layoutY="231.0" mnemonicParsing="false" onAction="#editarUsuario" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Editar Usuario" />
       <Button fx:id="buttExit" layoutX="496.0" layoutY="336.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="Salir" />
       <TableView fx:id="listasTotales" layoutX="226.0" layoutY="26.0" onMouseClicked="#seleccionar" prefHeight="214.0" prefWidth="226.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;">
          <columns>
@@ -35,10 +35,11 @@
       </TableView>
       <TableView fx:id="listaCanciones" layoutY="266.0" onMouseClicked="#seleccionar" prefHeight="139.0" prefWidth="454.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;">
          <columns>
-            <TableColumn fx:id="idCan" prefWidth="75.99999856948853" text="ID" />
-            <TableColumn fx:id="nombreCan" prefWidth="117.59998321533203" text="Nombre" />
-            <TableColumn fx:id="generoCan" prefWidth="128.80001831054688" text="Genero" />
-            <TableColumn fx:id="discoCan" prefWidth="129.5999755859375" text="Disco" />
+            <TableColumn fx:id="idCan" prefWidth="34.400022983551025" text="ID" />
+            <TableColumn fx:id="nombreCan" prefWidth="104.79996490478516" text="Nombre" />
+            <TableColumn fx:id="generoCan" prefWidth="111.20001220703125" text="Genero" />
+            <TableColumn fx:id="discoCan" prefWidth="106.4000244140625" text="Disco" />
+            <TableColumn fx:id="discoCan1" prefWidth="93.5999755859375" text="Repro" />
          </columns>
       </TableView>
       <ImageView fitHeight="103.0" fitWidth="199.0" layoutX="452.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
@@ -46,9 +47,9 @@
             <Image url="@../Images/logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="buttPlay" layoutX="36.0" layoutY="413.0" mnemonicParsing="false" onAction="#play" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="PLAY" />
-      <Button fx:id="buttNext" layoutX="226.0" layoutY="413.0" mnemonicParsing="false" onAction="#siguienteCancion" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="SIGUIENTE" />
-      <Button fx:id="buttPause" layoutX="131.0" layoutY="413.0" mnemonicParsing="false" onAction="#pause" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="PAUSE" />
-      <Button fx:id="buttPrevious" layoutX="321.0" layoutY="413.0" mnemonicParsing="false" onAction="#anteriorCancion" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="ANTERIOR" />
+      <Button layoutX="36.0" layoutY="413.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="PLAY" />
+      <Button layoutX="226.0" layoutY="413.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="SIGUIENTE" />
+      <Button layoutX="131.0" layoutY="413.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="PAUSE" />
+      <Button layoutX="321.0" layoutY="413.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="ANTERIOR" />
    </children>
 </AnchorPane>

@@ -29,8 +29,6 @@ import javafx.stage.Stage;
 public class mainScreenController {
 
 	@FXML
-	private TableColumn<MySQLcancionDAO, String> AutorCan;
-	@FXML
 	private Button buttECancion;
 
 	@FXML
@@ -46,38 +44,37 @@ public class mainScreenController {
 	private Button buttExit;
 
 	@FXML
-	private Button buttNext;
-
-	@FXML
-	private Button buttPause;
-
-	@FXML
-	private Button buttPlay;
-
-	@FXML
-	private Button buttPrevious;
-
-	@FXML
 	private Button buttSub;
+    @FXML
+    private TableColumn<ListaReproduccion, String> colCreador;
 
+    @FXML
+    private TableColumn<ListaReproduccion, String> colId;
+
+    @FXML
+    private TableColumn<ListaReproduccion, String> colNombre;
+    @FXML
+    private TableView<ListaReproduccion> listasPropias;
+    
 	@FXML
-	private TableColumn<ListaReproduccion, Long> idPList;
+	private TableColumn<ListaReproduccion, String> idPList;
 	@FXML
 	private TableColumn<ListaReproduccion, String> nombrePList;
 	@FXML
-	private TableColumn<ListaReproduccion, Integer> subPList;
+	private TableColumn<ListaReproduccion, String> subPList;
 	@FXML
 	private TableView<ListaReproduccion> listasTotales;
 
 	@FXML
-	private TableColumn<Cancion, Long> idCan;
+	private TableColumn<Cancion, String> idCan;
 
 	@FXML
 	private TableColumn<Cancion, String> nombreCan;
 
 	@FXML
 	private TableColumn<Cancion, String> generoCan;
-
+    @FXML
+    private TableColumn<Cancion,String> cancionesR;
 	@FXML
 	private TableColumn<Cancion, String> discoCan;
 
@@ -89,7 +86,7 @@ public class mainScreenController {
 	protected MySQLcancionDAO cDao = new MySQLcancionDAO();
 	protected static List<Cancion> cancionLista;
 	protected MySQLlistaReproduccionDAO lDao = new MySQLlistaReproduccionDAO();
-	protected static List<ListaReproduccion> ListadeListas;
+	protected static List<ListaReproduccion> ListadeListas, listasCreadas;
 
 	@FXML
 	public void initialize() throws DAOException {
@@ -98,40 +95,15 @@ public class mainScreenController {
 		usuario = transfer.getUser();
 		cancionLista = cDao.mostrarTodos();
 		ListadeListas = lDao.mostrarTodos();
-
-		listaCanciones.setItems(FXCollections.observableArrayList(cancionLista));
-		this.idCan.setCellValueFactory(new PropertyValueFactory<Cancion, Long>("id"));
-		this.nombreCan.setCellValueFactory(new PropertyValueFactory<Cancion, String>("nombre"));
-		this.generoCan.setCellValueFactory(new PropertyValueFactory<Cancion, String>("genero"));
-		this.discoCan.setCellValueFactory(new PropertyValueFactory<Cancion, String>("disk"));
-
-		
-		
-		listasTotales.setItems(FXCollections.observableArrayList(ListadeListas));
-		
-		idPList.setCellValueFactory(playList->{
-            SimpleStringProperty v=new SimpleStringProperty();
-            try {           
-             v.setValue(playList.getValue().getId().toString());
-         } catch (DAOException e) {
-             // TODO Auto-generated catch block
-             e.printStackTrace();
-         }
-            return v;
-        });
-		this.nombrePList.setCellValueFactory(new PropertyValueFactory<ListaReproduccion, String>("nombre"));
-		this.subPList.setCellValueFactory(new PropertyValueFactory<ListaReproduccion, Integer>("listaSubscriptores"));
+		listasCreadas = lDao.mostrarPorCreador(usuario);
+		System.out.println(listasCreadas.toString());
+		colocarInfo();
 
 	}
 
-    @FXML
-    void anteriorCancion(ActionEvent event) {
-    
-    }
-
-    @FXML
-    void editarListas(ActionEvent event) {
-    	FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("editarListas.fxml"));
+	@FXML
+	public void editarListas(ActionEvent event) {
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("editarListas.fxml"));
 		Parent modal;
 		try {
 			modal = fxmlLoader.load();
@@ -146,25 +118,26 @@ public class mainScreenController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
-    @FXML
-    void suscribirse(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	public void suscribirse(ActionEvent event) {
 
-    @FXML
-    void desuscribirse(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	public void desuscribirse(ActionEvent event) {
 
-    @FXML
-    void editarCancion(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	public void editarCancion(ActionEvent event) {
 
-    @FXML
-    void editarUsuario(ActionEvent event) {
-    	FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("editUsuario.fxml"));
+	}
+
+	@FXML
+	public void editarUsuario(ActionEvent event) {
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("editUsuario.fxml"));
 		Parent modal;
 		try {
 			modal = fxmlLoader.load();
@@ -179,32 +152,92 @@ public class mainScreenController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void exit(ActionEvent event) {
-    	Stage stage = (Stage) this.buttExit.getScene().getWindow();
+	@FXML
+	public void exit(ActionEvent event) {
+		Stage stage = (Stage) this.buttExit.getScene().getWindow();
 		stage.close();
-    }
+	}
 
-    @FXML
-    void pause(ActionEvent event) {
+	@FXML
+	public void seleccionar(MouseEvent event) {
 
-    }
+	}
 
-    @FXML
-    void play(ActionEvent event) {
+	public void colocarInfo() {
+		
+		listaCanciones.setItems(FXCollections.observableArrayList(cancionLista));
+		idCan.setCellValueFactory(eachsong -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(eachsong.getValue().getId()+"");
+			return v;
+		});
+		;
+		nombreCan.setCellValueFactory(eachsong -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(eachsong.getValue().getNombre());
+			return v;
+		});
+		;
+		generoCan.setCellValueFactory(eachsong -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(eachsong.getValue().getGenero().getNombre());
+			return v;
+		});
+		;
+		discoCan.setCellValueFactory(eachsong -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(eachsong.getValue().getDisk().getNombre());
+			return v;
+		});
+		;
+		
+		this.listaCanciones.refresh();
 
-    }
-
-    @FXML
-    void seleccionar(MouseEvent event) {
-
-    }
-
-    @FXML
-    void siguienteCancion(ActionEvent event) {
-
-    }
-	
+		listasTotales.setItems(FXCollections.observableArrayList(ListadeListas));
+		
+		idPList.setCellValueFactory(lista -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(lista.getValue().getId()+"");
+			return v;
+		});
+		;
+		nombrePList.setCellValueFactory(lista -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(lista.getValue().getNombre());
+			return v;
+		});
+		;
+		subPList.setCellValueFactory(lista -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(lista.getValue().getListaSubscriptores().size()+"");
+			return v;
+		});
+		;
+		this.listasTotales.refresh();
+		
+		listasPropias.setItems(FXCollections.observableArrayList(listasCreadas));
+		colId.setCellValueFactory(listas -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(listas.getValue().getId()+"");
+			return v;
+		});
+		;
+		colNombre.setCellValueFactory(eachsong -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(eachsong.getValue().getNombre());
+			return v;
+		});
+		;
+		colCreador.setCellValueFactory(eachsong -> {
+			SimpleStringProperty v = new SimpleStringProperty();
+			v.setValue(eachsong.getValue().getDescripcion());
+			return v;
+		});
+		;
+		this.listasPropias.refresh();
+		
+		
+	}
 }

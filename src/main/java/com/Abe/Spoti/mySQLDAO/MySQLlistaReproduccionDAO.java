@@ -22,9 +22,7 @@ public class MySQLlistaReproduccionDAO extends ListaReproduccion implements List
 	private final static String DELETEPLAYLIST = "DELETE FROM listareproduccion WHERE id = ?";
 	private final static String CREATEPLAYLIST = "INSERT INTO listareproduccion (nombre, descripcion,id_usuario) VALUES (?,?,?)";
 	private final static String EDITARPLAYLIST = "UPDATE listareproduccion SET nombre=?,descripcion=?,id_usuario=? WHERE id=?";
-	private final static String GETSUBSCRIBERS = "SELECT us.id,us.nombre,us.correo,us.foto,us.contraseña FROM lista_usuario "
-			+ "listUs INNER JOIN listareproduccion lr on lr.id=listUs.id_listaReproduccion INNER JOIN usuario us on "
-			+ "us.id=listUs.id_usuario WHERE lr.id = ?";
+	private final static String GETPLAYLISTBYCREATOR = "SELECT id, nombre, descripcion,id_usuario FROM listareproduccion WHERE id_usuario = ?";
 	
 	
 	private Connection con;
@@ -208,7 +206,44 @@ public class MySQLlistaReproduccionDAO extends ListaReproduccion implements List
 		}
 		return result;
 	}
+	
+	public List<ListaReproduccion> mostrarPorCreador(Usuario aux) throws DAOException {
+		con = MariaDBConexion.getConexion();
+		List<ListaReproduccion> result = new ArrayList<ListaReproduccion>();
+		if (con != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(GETPLAYLISTBYCREATOR);
+				ps.setLong(1, aux.getId());
+				rs = ps.executeQuery();
+				while (rs.next()) {
 
+					result.add(convertir(rs));
+				}
+			} catch (SQLException err) {
+				throw new DAOException("Error SQL : ", err);
+			} finally {
+				if (ps != null) {
+					try {
+						ps.close();
+					} catch (SQLException err) {
+						throw new DAOException("Error SQL :", err);
+					}
+				}
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException err) {
+						throw new DAOException("Error SQL :", err);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	
 	public void añadirCancion(Cancion cancion) {
 		List<Cancion> canciones = new ArrayList<>();
 		

@@ -97,8 +97,10 @@ public class Disco {
 	}
 	@Override
 	public String toString() {
-		return nombre;
+		return "Disco [id=" + id + ", nombre=" + nombre + ", fecha=" + fecha + ", foto=" + foto + ", repro=" + repro
+				+ ", auth=" + auth + ", listaCanciones=" + listaCanciones + "]";
 	}
+	
 	
 	
 	

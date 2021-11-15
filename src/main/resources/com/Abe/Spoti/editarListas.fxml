@@ -24,6 +24,6 @@
             <Image url="@../Images/descripcion.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="CBlistas" layoutX="112.0" layoutY="36.0" onAction="#chooseList" prefWidth="150.0" promptText="ELIGE LISTA" />
+      <ComboBox fx:id="CBlistas" layoutX="112.0" layoutY="36.0" prefWidth="150.0" promptText="ELIGE LISTA" />
    </children>
 </AnchorPane>

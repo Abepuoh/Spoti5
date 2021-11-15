@@ -9,7 +9,7 @@ public class Cancion {
 	protected Float duracion;
 	protected Genero genero;
 	protected Disco disk;
-
+	
 	public Cancion() {
 		this(-1L,"Default",0.0f,new Genero(),new Disco());
 	}
@@ -24,7 +24,9 @@ public class Cancion {
 		this.duracion = duracion;
 		this.genero = genero;
 		this.disk = disk;
+
 	}
+
 
 	public Long getId() {
 		return id;
