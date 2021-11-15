@@ -35,11 +35,10 @@
       </TableView>
       <TableView fx:id="listaCanciones" layoutY="266.0" onMouseClicked="#seleccionar" prefHeight="139.0" prefWidth="454.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;">
          <columns>
-            <TableColumn fx:id="idCan" prefWidth="34.400022983551025" text="ID" />
-            <TableColumn fx:id="nombreCan" prefWidth="104.79996490478516" text="Nombre" />
-            <TableColumn fx:id="generoCan" prefWidth="111.20001220703125" text="Genero" />
-            <TableColumn fx:id="discoCan" prefWidth="106.4000244140625" text="Disco" />
-            <TableColumn fx:id="discoCan1" prefWidth="93.5999755859375" text="Repro" />
+            <TableColumn fx:id="idCan" prefWidth="93.60000467300415" text="ID" />
+            <TableColumn fx:id="nombreCan" prefWidth="120.79999542236328" text="Nombre" />
+            <TableColumn fx:id="generoCan" prefWidth="116.0" text="Genero" />
+            <TableColumn fx:id="discoCan" prefWidth="118.39990234375" text="Disco" />
          </columns>
       </TableView>
       <ImageView fitHeight="103.0" fitWidth="199.0" layoutX="452.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">

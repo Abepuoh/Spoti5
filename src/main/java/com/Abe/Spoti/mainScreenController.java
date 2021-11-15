@@ -21,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -96,7 +95,6 @@ public class mainScreenController {
 		cancionLista = cDao.mostrarTodos();
 		ListadeListas = lDao.mostrarTodos();
 		listasCreadas = lDao.mostrarPorCreador(usuario);
-		System.out.println(listasCreadas.toString());
 		colocarInfo();
 
 	}

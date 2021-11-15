@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="475.0" style="-fx-background-color: #cdecdc; -fx-border-width: 3; -fx-border-color: #01d512;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Abe.Spoti.editListasController">
+   <children>
+      <Button fx:id="buttExit" layoutX="173.0" layoutY="344.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="Salir" />
+      <Button fx:id="buttCLista" layoutX="226.0" layoutY="259.0" mnemonicParsing="false" onAction="#crearLista" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Crear Canción" />
+      <TextField fx:id="txtNombre" layoutX="262.0" layoutY="114.0" promptText="Nombre" />
+      <TextField fx:id="txtDescripción" layoutX="262.0" layoutY="148.0" promptText="Duracion" />
+      <Button fx:id="buttBLista" layoutX="343.0" layoutY="259.0" mnemonicParsing="false" onAction="#borrarLista" prefHeight="26.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Borrar Cancion" />
+      <ImageView fitHeight="42.0" fitWidth="33.0" layoutX="221.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/nombre.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="33.0" layoutX="221.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/descripcion.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="CBlistas" layoutX="25.0" layoutY="127.0" prefWidth="150.0" promptText="Elige Lista" />
+      <ComboBox fx:id="CBlistas1" layoutX="25.0" layoutY="167.0" prefWidth="150.0" promptText="Elige Cancion" />
+      <ComboBox fx:id="CBlistas11" layoutX="261.0" layoutY="182.0" prefWidth="150.0" promptText="Elige Género" />
+      <ComboBox fx:id="CBlistas12" layoutX="261.0" layoutY="215.0" prefWidth="150.0" promptText="Elige Disco" />
+      <Text layoutX="22.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AÑADIR/BORRAR CANCIONES DE UNA PLAYLIST" textAlignment="CENTER" wrappingWidth="170.40001220703107" />
+      <Text layoutX="259.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREAR/BORRAR CANCIONES" wrappingWidth="179.19999999999982" />
+      <Button fx:id="buttCLista1" layoutX="47.0" layoutY="214.0" mnemonicParsing="false" onAction="#crearLista" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Añadir" />
+      <Button fx:id="buttCLista2" layoutX="47.0" layoutY="256.0" mnemonicParsing="false" onAction="#crearLista" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Borrar" />
+   </children>
+</AnchorPane>

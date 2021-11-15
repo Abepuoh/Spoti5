@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="385.0" style="-fx-background-color: #cdecdc;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Abe.Spoti.editListasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="385.0" style="-fx-background-color: #cdecdc; -fx-border-width: 3; -fx-border-color: #01d512;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Abe.Spoti.editListasController">
    <children>
       <Button fx:id="buttExit" layoutX="138.0" layoutY="234.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="Salir" />
       <Button fx:id="buttCLista" layoutX="66.0" layoutY="188.0" mnemonicParsing="false" onAction="#crearLista" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="Crear Lista" />

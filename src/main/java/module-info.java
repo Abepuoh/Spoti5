@@ -6,6 +6,7 @@ module com.Abe.Spoti {
 	requires java.xml;
 	requires javafx.base;
 
+	
     opens com.Abe.Spoti to javafx.fxml;
     opens com.Abe.Spoti.model to javafx.base;
     exports com.Abe.Spoti;

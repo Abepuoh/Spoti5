@@ -94,9 +94,7 @@ public class ListaReproduccion {
 
 	@Override
 	public String toString() {
-		return "ListaReproduccion [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador="
-				+ creador + "]";
+		return nombre; 
 	}
-	
 	
 }

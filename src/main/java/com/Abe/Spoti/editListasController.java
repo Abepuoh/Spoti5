@@ -7,7 +7,6 @@ import com.Abe.Spoti.model.ListaReproduccion;
 import com.Abe.Spoti.model.Usuario;
 import com.Abe.Spoti.model.UsuarioSingleton;
 import com.Abe.Spoti.mySQLDAO.MySQLlistaReproduccionDAO;
-import com.Abe.Spoti.mySQLDAO.MySQLusuarioDAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,12 +43,15 @@ public class editListasController {
 	
 	protected MySQLlistaReproduccionDAO aux = new MySQLlistaReproduccionDAO();
 	protected ObservableList<ListaReproduccion> auxL;
+	protected ListaReproduccion lista;
     @FXML
   	public void initialize() throws DAOException {
       	UsuarioSingleton transfer = UsuarioSingleton.getInstance();
   		usuario = transfer.getUser();
   		auxL =  FXCollections.observableArrayList(aux.mostrarTodos());
-  		this.CBlistas.setItems(auxL);
+  		CBlistas.setItems(auxL);
+		
+  		
   	}
     
 	@FXML
