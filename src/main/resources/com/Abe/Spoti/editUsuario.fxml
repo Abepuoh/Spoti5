@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="385.0" style="-fx-background-color: #cdecdc; -fx-border-width: 3; -fx-border-color: #01d512;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Abe.Spoti.editUsuarioController">
+   <children>
+      <Button fx:id="buttExit" layoutX="142.0" layoutY="199.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="Salir" />
+      <Button fx:id="buttEdit" layoutX="142.0" layoutY="149.0" mnemonicParsing="false" onAction="#editarUsuario" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="Modificar " />
+      <TextField fx:id="txtNombre" layoutX="115.0" layoutY="30.0" promptText="Nombre" style="-fx-border-color: #01d512;" />
+      <TextField fx:id="txtCorreo" layoutX="115.0" layoutY="64.0" promptText="Correo" style="-fx-border-color: #01d512;" />
+      <TextField fx:id="textContraseña" layoutX="115.0" layoutY="99.0" promptText="Contraseña" style="-fx-border-color: #01d512;" />
+   </children>
+</AnchorPane>
