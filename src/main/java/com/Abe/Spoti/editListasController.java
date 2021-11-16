@@ -53,11 +53,15 @@ public class editListasController {
 		
   		
   	}
-    
+    /**
+     * Metodo que nos permite borrar una de las playList de la que hemos creado
+     * @param event
+     * @throws DAOException
+     */
 	@FXML
 	void borrarLista(ActionEvent event) throws DAOException {
 		ListaReproduccion dummy = this.CBlistas.getValue();
-		if (dummy!= null) {	
+		if (dummy!= null && aux.mostrarTodos().contains(dummy)) {
 			showEdit(dummy.getNombre());
 			aux.borrar(dummy.getId());
 		} else {
@@ -68,13 +72,14 @@ public class editListasController {
 			alert.showAndWait();
 		}
 	}
-
+	/**
+	 * Metodo que usaremos para crearlistas de reproduccion con el id de usuario
+	 * @param event
+	 */
 	@FXML
 	void crearLista(ActionEvent event) {
 		String txtNombre = this.txtNombre.getText();
 		String txtDescripción = this.txtDescripción.getText();
-		
-
 		if (!this.txtNombre.getText().trim().isEmpty() && !this.txtDescripción.getText().trim().isEmpty()) {
 			try {
 				MySQLlistaReproduccionDAO aux = new MySQLlistaReproduccionDAO();
@@ -111,6 +116,11 @@ public class editListasController {
 		Stage stage = (Stage) this.buttExit.getScene().getWindow();
 		stage.close();
 	}
+	/**
+	 * Metodo que devuelve true o false usado para confirmar una accion
+	 * @param nombre de la cancion
+	 * @return
+	 */
 	public boolean showEdit(String nombre) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Confirme la acción");

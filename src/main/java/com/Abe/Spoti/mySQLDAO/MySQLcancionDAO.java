@@ -20,6 +20,7 @@ public class MySQLcancionDAO extends Cancion implements CancionDAO {
 	private static final String GETSONGS = "SELECT id, nombre, duracion ,id_genero,id_disco  FROM cancion";
 	private static final String GETSONGBYID = "SELECT id, nombre, duracion ,id_genero,id_disco FROM cancion WHERE id=?";
 	private static final String GETSONGBYGENERO = "SELECT id, nombre, duracion FROM cancion WHERE id_genero= ? ";
+	private static final String GETSONGBYNOMBRE = "SELECT id, nombre, duracion ,id_genero,id_disco FROM cancion WHERE nombre= ? ";
 	private final static String DELETESONG = "DELETE FROM cancion WHERE id =? ";
 	private final static String CREATESONG = "INSERT INTO cancion (nombre, duracion ,id_genero,id_disco ) VALUES (?,?,?,?) ";
 	private final static String EDITSONG = "UPDATE cancion SET nombre=?,duracion=?,id_genero=?,id_disco=? WHERE id=?";
@@ -30,11 +31,11 @@ public class MySQLcancionDAO extends Cancion implements CancionDAO {
 		super();
 	}
 
-	public MySQLcancionDAO(String nombre, float duracion, Genero genero, Disco disk) {
+	public MySQLcancionDAO(String nombre, int duracion, Genero genero, Disco disk) {
 		super(nombre, duracion, genero, disk);
 	}
 
-	public MySQLcancionDAO(Long id, String nombre, float duracion, Genero genero, Disco disk) {
+	public MySQLcancionDAO(Long id, String nombre, int duracion, Genero genero, Disco disk) {
 		super(id, nombre, duracion, genero, disk);
 
 	}
@@ -265,14 +266,53 @@ public class MySQLcancionDAO extends Cancion implements CancionDAO {
 		}
 		return result;
 	}
+	
+	@Override
+	public Cancion mostrarPorNombre(String nombre)throws DAOException{
+		con = MariaDBConexion.getConexion();
+		Cancion result = new Cancion();
+		if (con != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(GETSONGBYNOMBRE);
+				ps.setString(1, nombre);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					result = convertir(rs);
+				} else {
+					throw new DAOException("No se ha encontrado ese registro");
+				}
+			} catch (SQLException err) {
+				throw new DAOException("Error SQL :", err);
 
+			} finally {
+				if (ps != null) {
+					try {
+						ps.close();
+					} catch (SQLException err) {
+						throw new DAOException("Error SQL :", err);
+					}
+				}
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException err) {
+						throw new DAOException("Error SQL :", err);
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
 	public Cancion convertir(ResultSet rs) throws SQLException, DAOException {
 		Cancion cancion = new Cancion();
 		Disco disco = new MySQLdiscoDAO().mostrarPorId(rs.getLong("id_disco"));
 		Genero genero = new MySQLgeneroDAO().mostrarPorId(rs.getLong("id_genero"));
 		cancion.setId(rs.getLong("id"));
 		cancion.setNombre(rs.getString("nombre"));
-		cancion.setDuracion(rs.getFloat("duracion"));
+		cancion.setDuracion(rs.getInt("duracion"));
 		cancion.setDisk(disco);
 		cancion.setGenero(genero);
 		return cancion;

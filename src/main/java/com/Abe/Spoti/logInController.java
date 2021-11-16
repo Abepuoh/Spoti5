@@ -36,7 +36,11 @@ public class logInController {
 	@FXML
 	public void initialize() {
 	}
-
+	/**
+	 * Metodo que abre model y añades usuarios
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void addUser(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("registroUser.fxml"));
@@ -55,7 +59,12 @@ public class logInController {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Metodo para loguearse en la aplicacion
+	 * @param event
+	 * @throws IOException
+	 * @throws DAOException
+	 */
 	@FXML
 	void logUser(ActionEvent event) throws IOException, DAOException {
 		String name = this.txtUser.getText();

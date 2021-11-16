@@ -14,6 +14,10 @@ public interface CancionDAO extends IDAO<Cancion, Long>{
 	 * @throws DAOException
 	 */
 	List<Cancion> mostrarPorGenero (Genero aux) throws DAOException;
-
-
+	/**
+	 * Método que muestra la cancion por el nombre introducido
+	 * @param name que buscaremos en la base de datos
+	 * @throws DAOException
+	 */
+	Cancion mostrarPorNombre(String name) throws DAOException;
 }

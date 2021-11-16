@@ -265,7 +265,6 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 				}
 			}
 		}
-
 	}
 
 	@Override

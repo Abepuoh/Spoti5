@@ -19,10 +19,22 @@ public interface ListaReproduccionDAO extends IDAO<ListaReproduccion, Long>{
       * Método que añade una canción a una PlayList
       * @param cancion que queremos añadir
       * @param lista a la que añadir cancion
-      * @return tr
       * @throws DAOException
       */
      void añadirCancion(Cancion cancion,ListaReproduccion lista) throws DAOException;
-
+     /**
+      * Método que borra una canción de una PlayList
+      * @param cancion  que queremos borrar
+      * @param lista  de la que borrar
+      * @throws DAOException
+      */
      void borrarCancion(Cancion cancion,ListaReproduccion lista) throws DAOException;
+     /**
+      * Método que checkea si una canción esta en la playlist
+      * @param cancion que queremos buscar
+      * @param lista donde buscar
+      * @return true o false dependiendo de si está o no.
+      * @throws DAOException
+      */
+     boolean checkSong(Cancion cancion,ListaReproduccion lista)throws DAOException;
 }

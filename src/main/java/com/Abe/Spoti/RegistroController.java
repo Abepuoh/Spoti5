@@ -37,7 +37,10 @@ public class RegistroController {
 		Stage stage = (Stage) this.buttSave.getScene().getWindow();
 		stage.close();
 	}
-
+	/**
+	 * Metodo que sirve para guardar usuarios nuevos en la base de datos
+	 * @param event
+	 */
 	@FXML
 	void saveUser(ActionEvent event) {
 

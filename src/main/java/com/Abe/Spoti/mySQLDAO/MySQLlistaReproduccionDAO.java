@@ -19,11 +19,13 @@ public class MySQLlistaReproduccionDAO extends ListaReproduccion implements List
 
 	private final static String GETPLAYLISTBYID = "SELECT id, nombre, descripcion,id_usuario FROM listareproduccion WHERE id = ?";
 	private final static String GETPLAYLISTS = "SELECT  id, nombre, descripcion,id_usuario FROM listareproduccion";
+	private final static String CHECKSONG= "SELECT id_cancion, id_listaReproduccion FROM cancion_lista WHERE id_cancion=? AND id_listaReproduccion=?";
 	private final static String DELETEPLAYLIST = "DELETE FROM listareproduccion WHERE id = ?";
 	private final static String CREATEPLAYLIST = "INSERT INTO listareproduccion (nombre, descripcion,id_usuario) VALUES (?,?,?)";
 	private final static String EDITARPLAYLIST = "UPDATE listareproduccion SET nombre=?,descripcion=?,id_usuario=? WHERE id=?";
 	private final static String GETPLAYLISTBYCREATOR = "SELECT id, nombre, descripcion,id_usuario FROM listareproduccion WHERE id_usuario = ?";
-	
+	private final static String AÑADIRCANCIONAPL = "INSERT INTO cancion_lista (id_cancion, id_listaReproduccion) VALUES (?,?)";
+	private final static String BORRARCANCIONPL ="DELETE FROM cancion_lista WHERE id_cancion=? AND id_listaReproduccion=?";
 	
 	private Connection con = null;
 
@@ -207,6 +209,7 @@ public class MySQLlistaReproduccionDAO extends ListaReproduccion implements List
 		return result;
 	}
 	
+	@Override
 	public List<ListaReproduccion> mostrarPorCreador(Usuario aux) throws DAOException {
 		con = MariaDBConexion.getConexion();
 		List<ListaReproduccion> result = new ArrayList<ListaReproduccion>();
@@ -245,15 +248,94 @@ public class MySQLlistaReproduccionDAO extends ListaReproduccion implements List
 
 	@Override
 	public void añadirCancion(Cancion cancion,ListaReproduccion lista) throws DAOException {
-		List<Cancion> canciones = new ArrayList<>();
-		
+
+		con = MariaDBConexion.getConexion();
+		if (con != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(AÑADIRCANCIONAPL);
+
+				ps.setLong(1, cancion.getId());
+				ps.setLong(2, lista.getId());
+				ps.executeUpdate();
+
+			} catch (SQLException err) {
+				throw new DAOException("Error SQL en : ", err);
+			} finally {
+				if (ps != null) {
+					try {
+						ps.close();
+					} catch (SQLException err) {
+						throw new DAOException("Error SQL :", err);
+					}
+				}
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException err) {
+						throw new DAOException("Error SQL :", err);
+					}
+				}
+			}
+		}
 	}
+	
 	@Override
 	public void borrarCancion(Cancion cancion,ListaReproduccion lista) throws DAOException {
-		List<Cancion> canciones = new ArrayList<>();
+		con = MariaDBConexion.getConexion();
+		if (con != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(BORRARCANCIONPL);
+
+				ps.setLong(1, cancion.getId());
+				ps.setLong(2, lista.getId());
+				ps.executeUpdate();
+
+			} catch (SQLException err) {
+				throw new DAOException("Error SQL en : ", err);
+			} finally {
+				if (ps != null) {
+					try {
+						ps.close();
+					} catch (SQLException err) {
+						throw new DAOException("Error SQL :", err);
+					}
+				}
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException err) {
+						throw new DAOException("Error SQL :", err);
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
+	public boolean checkSong(Cancion cancion, ListaReproduccion lista) throws DAOException {
+		boolean logResult = false;
+		try {
+			Connection con = MariaDBConexion.getConexion();
+			PreparedStatement ps = con.prepareStatement(CHECKSONG);
+			ps.setLong(1, cancion.getId());
+			ps.setLong(2, lista.getId());
+			ResultSet rs = ps.executeQuery();
+			if (!rs.next()) {
+				logResult = false;
+			} else {
+				logResult = true;
+			}
+		} catch (SQLException err) {
+			throw new DAOException("Error SQL :", err);
+		}
+		return logResult;
 		
 	}
-
+	
 	public ListaReproduccion convertir(ResultSet rs) throws SQLException, DAOException {
 		ListaReproduccion aux = new ListaReproduccion();
 		Usuario ar = new MySQLusuarioDAO().mostrarPorId(rs.getLong("id_usuario"));
@@ -263,5 +345,7 @@ public class MySQLlistaReproduccionDAO extends ListaReproduccion implements List
 		aux.setCreador(ar);
 		return aux;
 	}
+
+	
 
 }

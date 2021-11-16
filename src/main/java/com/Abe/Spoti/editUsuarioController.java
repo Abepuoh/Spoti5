@@ -39,7 +39,11 @@ public class editUsuarioController {
     	UsuarioSingleton transfer = UsuarioSingleton.getInstance();
 		usuario = transfer.getUser();
 	}
-    
+    /** 
+     * Método que nos permite cambiar los parámetros del usuario con el que nos hemos logueado
+     * @param event
+     * @throws DAOException
+     */
     @FXML
     void editarUsuario(ActionEvent event) throws DAOException {
     	String nombre = this.txtNombre.getText();
@@ -78,7 +82,11 @@ public class editUsuarioController {
 		}
 	}
 
-    
+    /**
+	 * Metodo que devuelve true o false usado para confirmar una accion
+	 * @param nombre de la cancion
+	 * @return
+	 */
 	public boolean showEdit(String nombre) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Confirme la acción");

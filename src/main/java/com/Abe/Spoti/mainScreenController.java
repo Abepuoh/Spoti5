@@ -101,7 +101,11 @@ public class mainScreenController {
 		colocarInfo();
 		
 	}
-
+	/**
+	 * Metodo que te suscribe a una lista de reproduccion
+	 * @param event
+	 * @throws DAOException
+	 */
 	@FXML
 	public void suscribirse(ActionEvent event) throws DAOException {
 		MySQLusuarioDAO us = new MySQLusuarioDAO();
@@ -117,7 +121,11 @@ public class mainScreenController {
 			alert.showAndWait();
 		}
 	}
-
+	/**
+	 * Metodo que te desuscibre a una lista de reproduccion
+	 * @param event
+	 * @throws DAOException
+	 */
 	@FXML
 	public void desuscribirse(ActionEvent event) throws DAOException {
 		MySQLusuarioDAO us = new MySQLusuarioDAO();
@@ -134,7 +142,11 @@ public class mainScreenController {
 			alert.showAndWait();
 		}
 	}
-
+	/**
+	 * Método que abre modal y edita las listas de reproduccion
+	 * @param event
+	 * @throws DAOException
+	 */
 	@FXML
 	public void editarListas(ActionEvent event) throws DAOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("editarListas.fxml"));
@@ -156,9 +168,13 @@ public class mainScreenController {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Metodo que abre modal y edita las canciones
+	 * @param event
+	 * @throws DAOException
+	 */
 	@FXML
-	public void editarCancion(ActionEvent event) {
+	public void editarCancion(ActionEvent event) throws DAOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("cancionesController.fxml"));
 		Parent modal;
 		try {
@@ -169,13 +185,17 @@ public class mainScreenController {
 			Scene modalScene = new Scene(modal);
 			modalStage.setScene(modalScene);
 			modalStage.showAndWait();
+			cancionLista.setAll(cDao.mostrarTodos());
 			modalStage.setResizable(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Metodo que abre modal y editas al usuario
+	 * @param event
+	 */
 	@FXML
 	public void editarUsuario(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("editUsuario.fxml"));
@@ -200,7 +220,9 @@ public class mainScreenController {
 		Stage stage = (Stage) this.buttExit.getScene().getWindow();
 		stage.close();
 	}
-
+	/**
+	 * Metodo que carga la información en los tableView.
+	 */
 	public void colocarInfo() {
 
 		idCan.setCellValueFactory(eachsong -> {
@@ -269,7 +291,11 @@ public class mainScreenController {
 		;
 		this.listasPropias.setItems(listasPropiasU);
 	}
-
+	/**
+	 * Método para confirmar la suscripcion
+	 * @param nombre de la lista
+	 * @return
+	 */
 	public boolean showSub(String nombre) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Confirme la acción");
@@ -282,7 +308,11 @@ public class mainScreenController {
 			return false;
 		}
 	}
-
+	/**
+	 * Método para confirmar la desuscripciob
+	 * @param nombre de la lista
+	 * @return
+	 */
 	public boolean unSub(String nombre) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Confirme la acción");
