@@ -19,13 +19,11 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 	private final static String GETUSERBYID = "SELECT id,nombre, correo ,foto,contraseña FROM usuario WHERE id = ?";
 	private final static String GETUSERS = "SELECT id,nombre, correo ,foto,contraseña FROM usuario";
 	private final static String GETUSERBYNAMEPASS = "SELECT id,nombre, correo ,foto,contraseña FROM usuario WHERE nombre= ? AND contraseña = ?";
-	private final static String GETPLAYLISTSUBCRIBED = "SELECT id_listReproduccion FROM listarp,lista_usuario, usuario WHERE "
-			+ "usuario.id = lista_usuario.id_usuario ";
 	private final static String DELETEUSER = "DELETE FROM usuario WHERE id =? ";
 	private final static String CREATEUSER = "INSERT INTO usuario (nombre, correo ,foto,contraseña ) VALUES (?,?,?,?) ";
 	private final static String EDITUSER = "UPDATE usuario SET nombre=?, correo = ?, contraseña=? WHERE id=?";
 	private final static String AÑADIRPLAYLIST = "INSERT INTO lista_usuario (id_listaReproduccion, id_usuario) VALUES (?,?)";
-	private final static String BORRARPLAYLIST ="DELETE FROM lista_usuario WHERE id_usuario=? AND id_listaReproduccion=?";
+	private final static String BORRARPLAYLIST ="DELETE FROM lista_usuario WHERE id_listaReproduccion=? AND id_usuario=?";
 
 	private Connection con;
 
@@ -270,7 +268,7 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 	}
 
 	@Override
-	public void borrarListaUsuario(ListaReproduccion aux) throws DAOException {
+	public void borrarListaUsuario(ListaReproduccion aux,Usuario auxU) throws DAOException {
 		con = MariaDBConexion.getConexion();
 		if (con != null) {
 			PreparedStatement ps = null;
@@ -278,6 +276,7 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 			try {
 				ps = con.prepareStatement(BORRARPLAYLIST);
 				ps.setLong(1, aux.getId());
+				ps.setLong(2, auxU.getId());
 				ps.executeUpdate();
 
 			} catch (SQLException err) {
@@ -342,38 +341,8 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 		}
 		return result;
 	}
-
-	@Override
-	public List<Long> getPlaylistSub(Usuario aux) throws DAOException {
-		//ListaReproduccion dummy = new ListaReproduccion();
-		List<Long> result = new ArrayList<Long>();
-		con = MariaDBConexion.getConexion();
-		if (con != null) {
-			PreparedStatement ps = null;
-			ResultSet rs = null;
-			try {
-				ps = con.prepareStatement(GETPLAYLISTSUBCRIBED);
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					//result.add(new ListaReproduccion(rs.getString("nombre"),
-					//	rs.getString("descripcion"),rs.getLong("usuario"));
-				}
-
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} finally {
-				try {
-					ps.close();
-					rs.close();
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-			}
-		}
-		return result;
-	}
 	
+	@Override
 	public boolean logIn(String nombre, String contraseña) throws DAOException {
 		boolean logResult = false;
 		try {

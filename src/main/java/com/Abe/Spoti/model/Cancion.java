@@ -88,8 +88,7 @@ public class Cancion {
 
 	@Override
 	public String toString() {
-		return "track [id=" + id + ", nombre=" + nombre + ", duracion=" + duracion +
-				", genero=" + genero  + ", diskF=" + disk + "]";
+		return nombre;
 	}
 	
 	

@@ -1,7 +1,5 @@
 package com.Abe.Spoti.DAO;
 
-import java.util.List;
-
 import com.Abe.Spoti.model.ListaReproduccion;
 import com.Abe.Spoti.model.Usuario;
 
@@ -21,7 +19,7 @@ public interface UsuarioDAO extends IDAO<Usuario, Long>{
 	 * @param aux la lista que queremos borrar
 	 * @throws DAOException
 	 */
-	void borrarListaUsuario(ListaReproduccion aux) throws DAOException;
+	void borrarListaUsuario(ListaReproduccion aux,Usuario auxU) throws DAOException;
 	
 	/**
 	 * Método que devuelve el usuario mediante dos parámetros que introduzcamos
@@ -32,9 +30,11 @@ public interface UsuarioDAO extends IDAO<Usuario, Long>{
 	Usuario getUsuarioByNombreContraseña(String nAux, String cAux) throws DAOException;
 	
 	/**
-	 * Método que devuelve las playList a las que está subscrito un usuario
-	 * @return las playList
+	 * Método que devuelve true o false en función de si el usuario esta logueado o no
+	 * @param nombre del usuario	
+	 * @param contraseña del usuario	
+	 * @return true o false si esta logged
 	 * @throws DAOException
 	 */
-	List<Long> getPlaylistSub(Usuario aux) throws DAOException;
+	boolean logIn(String nombre, String contraseña) throws DAOException;
 }

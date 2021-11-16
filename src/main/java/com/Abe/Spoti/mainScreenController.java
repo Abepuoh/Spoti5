@@ -1,6 +1,7 @@
 package com.Abe.Spoti;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import com.Abe.Spoti.DAO.DAOException;
 import com.Abe.Spoti.model.Cancion;
@@ -21,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -83,10 +85,11 @@ public class mainScreenController {
 
 	protected Usuario usuario;
 	protected MySQLcancionDAO cDao = new MySQLcancionDAO();
-	protected static ObservableList<Cancion> cancionLista = FXCollections.observableArrayList();
 	protected MySQLlistaReproduccionDAO lDao = new MySQLlistaReproduccionDAO();
+	protected static ObservableList<Cancion> cancionLista = FXCollections.observableArrayList();
 	protected static ObservableList<ListaReproduccion> ListadeListas = FXCollections.observableArrayList();
 	protected static ObservableList<ListaReproduccion> listasPropiasU = FXCollections.observableArrayList();
+
 	@FXML
 	public void initialize() throws DAOException {
 
@@ -96,28 +99,40 @@ public class mainScreenController {
 		ListadeListas.setAll(lDao.mostrarTodos());
 		listasPropiasU.setAll(lDao.mostrarPorCreador(usuario));
 		colocarInfo();
-
+		
 	}
 
 	@FXML
 	public void suscribirse(ActionEvent event) throws DAOException {
 		MySQLusuarioDAO us = new MySQLusuarioDAO();
 		ListaReproduccion aux = this.listasTotales.getSelectionModel().getSelectedItem();
-		if(aux!=null) {
-			//us.añadirListaUsºuario(aux,usuario);
-		//traersubporusuario
-		}else {
+		buttSub.setVisible(true);
+		if (aux != null) {
+			showSub(aux.getNombre());
+			us.añadirListaUsuario(aux, usuario);
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
-			alert.setContentText("No has seleccionado una lista");
+			alert.setContentText("No has seleccionado o ya estas suscrito una lista");
 			alert.showAndWait();
 		}
 	}
 
 	@FXML
-	public void desuscribirse(ActionEvent event) {
-
+	public void desuscribirse(ActionEvent event) throws DAOException {
+		MySQLusuarioDAO us = new MySQLusuarioDAO();
+		ListaReproduccion aux = this.listasTotales.getSelectionModel().getSelectedItem();
+		if (aux != null) {
+			unSub(aux.getNombre());
+			us.borrarListaUsuario(aux, usuario);
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("No has seleccionado o ya estas suscrito una lista");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -133,8 +148,8 @@ public class mainScreenController {
 			modalStage.setScene(modalScene);
 			modalStage.showAndWait();
 			MySQLlistaReproduccionDAO aux = new MySQLlistaReproduccionDAO();
-			System.out.println();
 			ListadeListas.setAll(aux.mostrarTodos());
+			listasPropiasU.setAll(aux.mostrarPorCreador(usuario));
 			modalStage.setResizable(false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -213,7 +228,6 @@ public class mainScreenController {
 		});
 		;
 		this.listaCanciones.setItems(cancionLista);
-		
 
 		idPList.setCellValueFactory(lista -> {
 			SimpleStringProperty v = new SimpleStringProperty();
@@ -254,5 +268,31 @@ public class mainScreenController {
 		});
 		;
 		this.listasPropias.setItems(listasPropiasU);
+	}
+
+	public boolean showSub(String nombre) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Confirme la acción");
+		alert.setHeaderText("¿Estas seguro de querer suscribirte a " + nombre + "?");
+		alert.setContentText("Si continuas tus listas seran modificados");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean unSub(String nombre) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Confirme la acción");
+		alert.setHeaderText("¿Estas seguro de querer borrar tu suscripción " + nombre + "?");
+		alert.setContentText("Si continuas tus listas seran modificados");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

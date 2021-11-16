@@ -58,8 +58,8 @@ public class editListasController {
 	void borrarLista(ActionEvent event) throws DAOException {
 		ListaReproduccion dummy = this.CBlistas.getValue();
 		if (dummy!= null) {	
-			aux.borrar(dummy.getId());
 			showEdit(dummy.getNombre());
+			aux.borrar(dummy.getId());
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);

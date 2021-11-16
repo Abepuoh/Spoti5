@@ -243,21 +243,15 @@ public class MySQLlistaReproduccionDAO extends ListaReproduccion implements List
 		return result;
 	}
 
-	
-	public void añadirCancion(Cancion cancion) {
+	@Override
+	public void añadirCancion(Cancion cancion,ListaReproduccion lista) throws DAOException {
 		List<Cancion> canciones = new ArrayList<>();
 		
 	}
-	
-	public void borrarCancion(Cancion cancion) {
+	@Override
+	public void borrarCancion(Cancion cancion,ListaReproduccion lista) throws DAOException {
 		List<Cancion> canciones = new ArrayList<>();
 		
-	}
-	
-	public List<Cancion> mostrarCanciones(){
-		List<Cancion> canciones = new ArrayList<>();
-		
-		return canciones;
 	}
 
 	public ListaReproduccion convertir(ResultSet rs) throws SQLException, DAOException {
