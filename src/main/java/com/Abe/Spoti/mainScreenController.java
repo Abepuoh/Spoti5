@@ -1,7 +1,6 @@
 package com.Abe.Spoti;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.Abe.Spoti.DAO.DAOException;
 import com.Abe.Spoti.model.Cancion;
@@ -10,18 +9,20 @@ import com.Abe.Spoti.model.Usuario;
 import com.Abe.Spoti.model.UsuarioSingleton;
 import com.Abe.Spoti.mySQLDAO.MySQLcancionDAO;
 import com.Abe.Spoti.mySQLDAO.MySQLlistaReproduccionDAO;
+import com.Abe.Spoti.mySQLDAO.MySQLusuarioDAO;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,17 +45,17 @@ public class mainScreenController {
 
 	@FXML
 	private Button buttSub;
-    @FXML
-    private TableColumn<ListaReproduccion, String> colCreador;
+	@FXML
+	private TableColumn<ListaReproduccion, String> colCreador;
 
-    @FXML
-    private TableColumn<ListaReproduccion, String> colId;
+	@FXML
+	private TableColumn<ListaReproduccion, String> colId;
 
-    @FXML
-    private TableColumn<ListaReproduccion, String> colNombre;
-    @FXML
-    private TableView<ListaReproduccion> listasPropias;
-    
+	@FXML
+	private TableColumn<ListaReproduccion, String> colNombre;
+	@FXML
+	private TableView<ListaReproduccion> listasPropias;
+
 	@FXML
 	private TableColumn<ListaReproduccion, String> idPList;
 	@FXML
@@ -72,8 +73,8 @@ public class mainScreenController {
 
 	@FXML
 	private TableColumn<Cancion, String> generoCan;
-    @FXML
-    private TableColumn<Cancion,String> cancionesR;
+	@FXML
+	private TableColumn<Cancion, String> cancionesR;
 	@FXML
 	private TableColumn<Cancion, String> discoCan;
 
@@ -81,26 +82,46 @@ public class mainScreenController {
 	private TableView<Cancion> listaCanciones;
 
 	protected Usuario usuario;
-
 	protected MySQLcancionDAO cDao = new MySQLcancionDAO();
-	protected static List<Cancion> cancionLista;
+	protected static ObservableList<Cancion> cancionLista = FXCollections.observableArrayList();
 	protected MySQLlistaReproduccionDAO lDao = new MySQLlistaReproduccionDAO();
-	protected static List<ListaReproduccion> ListadeListas, listasCreadas;
-
+	protected static ObservableList<ListaReproduccion> ListadeListas = FXCollections.observableArrayList();
+	protected static ObservableList<ListaReproduccion> listasPropiasU = FXCollections.observableArrayList();
 	@FXML
 	public void initialize() throws DAOException {
 
 		UsuarioSingleton transfer = UsuarioSingleton.getInstance();
 		usuario = transfer.getUser();
-		cancionLista = cDao.mostrarTodos();
-		ListadeListas = lDao.mostrarTodos();
-		listasCreadas = lDao.mostrarPorCreador(usuario);
+		cancionLista.setAll(cDao.mostrarTodos());
+		ListadeListas.setAll(lDao.mostrarTodos());
+		listasPropiasU.setAll(lDao.mostrarPorCreador(usuario));
 		colocarInfo();
 
 	}
 
 	@FXML
-	public void editarListas(ActionEvent event) {
+	public void suscribirse(ActionEvent event) throws DAOException {
+		MySQLusuarioDAO us = new MySQLusuarioDAO();
+		ListaReproduccion aux = this.listasTotales.getSelectionModel().getSelectedItem();
+		if(aux!=null) {
+			//us.añadirListaUsºuario(aux,usuario);
+		//traersubporusuario
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("No has seleccionado una lista");
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void desuscribirse(ActionEvent event) {
+
+	}
+
+	@FXML
+	public void editarListas(ActionEvent event) throws DAOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("editarListas.fxml"));
 		Parent modal;
 		try {
@@ -111,6 +132,9 @@ public class mainScreenController {
 			Scene modalScene = new Scene(modal);
 			modalStage.setScene(modalScene);
 			modalStage.showAndWait();
+			MySQLlistaReproduccionDAO aux = new MySQLlistaReproduccionDAO();
+			System.out.println();
+			ListadeListas.setAll(aux.mostrarTodos());
 			modalStage.setResizable(false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -119,18 +143,22 @@ public class mainScreenController {
 	}
 
 	@FXML
-	public void suscribirse(ActionEvent event) {
-
-	}
-
-	@FXML
-	public void desuscribirse(ActionEvent event) {
-
-	}
-
-	@FXML
 	public void editarCancion(ActionEvent event) {
-
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("cancionesController.fxml"));
+		Parent modal;
+		try {
+			modal = fxmlLoader.load();
+			Stage modalStage = new Stage();
+			modalStage.initModality(Modality.APPLICATION_MODAL);
+			modalStage.initOwner(App.rootstage);
+			Scene modalScene = new Scene(modal);
+			modalStage.setScene(modalScene);
+			modalStage.showAndWait();
+			modalStage.setResizable(true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -158,17 +186,11 @@ public class mainScreenController {
 		stage.close();
 	}
 
-	@FXML
-	public void seleccionar(MouseEvent event) {
-
-	}
-
 	public void colocarInfo() {
-		
-		listaCanciones.setItems(FXCollections.observableArrayList(cancionLista));
+
 		idCan.setCellValueFactory(eachsong -> {
 			SimpleStringProperty v = new SimpleStringProperty();
-			v.setValue(eachsong.getValue().getId()+"");
+			v.setValue(eachsong.getValue().getId() + "");
 			return v;
 		});
 		;
@@ -190,14 +212,12 @@ public class mainScreenController {
 			return v;
 		});
 		;
+		this.listaCanciones.setItems(cancionLista);
 		
-		this.listaCanciones.refresh();
 
-		listasTotales.setItems(FXCollections.observableArrayList(ListadeListas));
-		
 		idPList.setCellValueFactory(lista -> {
 			SimpleStringProperty v = new SimpleStringProperty();
-			v.setValue(lista.getValue().getId()+"");
+			v.setValue(lista.getValue().getId() + "");
 			return v;
 		});
 		;
@@ -209,33 +229,30 @@ public class mainScreenController {
 		;
 		subPList.setCellValueFactory(lista -> {
 			SimpleStringProperty v = new SimpleStringProperty();
-			v.setValue(lista.getValue().getListaSubscriptores().size()+"");
+			v.setValue(lista.getValue().getListaSubscriptores().size() + "");
 			return v;
 		});
 		;
-		this.listasTotales.refresh();
-		
-		listasPropias.setItems(FXCollections.observableArrayList(listasCreadas));
+		this.listasTotales.setItems(ListadeListas);
+
 		colId.setCellValueFactory(listas -> {
 			SimpleStringProperty v = new SimpleStringProperty();
-			v.setValue(listas.getValue().getId()+"");
+			v.setValue(listas.getValue().getId() + "");
 			return v;
 		});
 		;
-		colNombre.setCellValueFactory(eachsong -> {
+		colNombre.setCellValueFactory(listas -> {
 			SimpleStringProperty v = new SimpleStringProperty();
-			v.setValue(eachsong.getValue().getNombre());
+			v.setValue(listas.getValue().getNombre());
 			return v;
 		});
 		;
-		colCreador.setCellValueFactory(eachsong -> {
+		colCreador.setCellValueFactory(listas -> {
 			SimpleStringProperty v = new SimpleStringProperty();
-			v.setValue(eachsong.getValue().getDescripcion());
+			v.setValue(listas.getValue().getDescripcion());
 			return v;
 		});
 		;
-		this.listasPropias.refresh();
-		
-		
+		this.listasPropias.setItems(listasPropiasU);
 	}
 }

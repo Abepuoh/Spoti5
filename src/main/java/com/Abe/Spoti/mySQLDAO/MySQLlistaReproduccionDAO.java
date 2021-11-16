@@ -25,7 +25,7 @@ public class MySQLlistaReproduccionDAO extends ListaReproduccion implements List
 	private final static String GETPLAYLISTBYCREATOR = "SELECT id, nombre, descripcion,id_usuario FROM listareproduccion WHERE id_usuario = ?";
 	
 	
-	private Connection con;
+	private Connection con = null;
 
 	@Override
 	public void crear(ListaReproduccion aux) throws DAOException {

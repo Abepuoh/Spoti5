@@ -19,15 +19,15 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 	private final static String GETUSERBYID = "SELECT id,nombre, correo ,foto,contraseña FROM usuario WHERE id = ?";
 	private final static String GETUSERS = "SELECT id,nombre, correo ,foto,contraseña FROM usuario";
 	private final static String GETUSERBYNAMEPASS = "SELECT id,nombre, correo ,foto,contraseña FROM usuario WHERE nombre= ? AND contraseña = ?";
-	private final static String GETPLAYLISTSUBCRIBED = "SELECT listareproduccion.nombre FROM listarp,lista_usuario, usuario WHERE "
+	private final static String GETPLAYLISTSUBCRIBED = "SELECT id_listReproduccion FROM listarp,lista_usuario, usuario WHERE "
 			+ "usuario.id = lista_usuario.id_usuario ";
 	private final static String DELETEUSER = "DELETE FROM usuario WHERE id =? ";
 	private final static String CREATEUSER = "INSERT INTO usuario (nombre, correo ,foto,contraseña ) VALUES (?,?,?,?) ";
 	private final static String EDITUSER = "UPDATE usuario SET nombre=?, correo = ?, contraseña=? WHERE id=?";
-	private final static String AÑADIRPLAYLIST = "INSERT INTO lista_usuario (id_listaReproduccion, id_Usuario) VALUES (?,?)";
-	private final static String BORRARPLAYLIST = "DELETE FROM lista_usuario WHERE id=?";
+	private final static String AÑADIRPLAYLIST = "INSERT INTO lista_usuario (id_listaReproduccion, id_usuario) VALUES (?,?)";
+	private final static String BORRARPLAYLIST ="DELETE FROM lista_usuario WHERE id_usuario=? AND id_listaReproduccion=?";
 
-	private Connection con = null;
+	private Connection con;
 
 	public MySQLusuarioDAO(Connection con) {
 		this.con = con;
@@ -234,7 +234,7 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 	}
 
 	@Override
-	public void añadirListaUsuario(Usuario auxU, ListaReproduccion auxR) throws DAOException {
+	public void añadirListaUsuario( ListaReproduccion auxR,Usuario auxU) throws DAOException {
 
 		con = MariaDBConexion.getConexion();
 		if (con != null) {
@@ -243,8 +243,8 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 			try {
 				ps = con.prepareStatement(AÑADIRPLAYLIST);
 
-				ps.setLong(2, auxR.getId());
-				ps.setLong(1, auxU.getId());
+				ps.setLong(1, auxR.getId());
+				ps.setLong(2, auxU.getId());
 				ps.executeUpdate();
 
 			} catch (SQLException err) {
@@ -344,9 +344,9 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 	}
 
 	@Override
-	public List<ListaReproduccion> getPlaylistSub(Usuario aux) throws DAOException {
+	public List<Long> getPlaylistSub(Usuario aux) throws DAOException {
 		//ListaReproduccion dummy = new ListaReproduccion();
-		List<ListaReproduccion> result = new ArrayList<ListaReproduccion>();
+		List<Long> result = new ArrayList<Long>();
 		con = MariaDBConexion.getConexion();
 		if (con != null) {
 			PreparedStatement ps = null;

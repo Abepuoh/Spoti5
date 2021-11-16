@@ -43,7 +43,7 @@ public class editListasController {
 	
 	protected MySQLlistaReproduccionDAO aux = new MySQLlistaReproduccionDAO();
 	protected ObservableList<ListaReproduccion> auxL;
-	protected ListaReproduccion lista;
+	
     @FXML
   	public void initialize() throws DAOException {
       	UsuarioSingleton transfer = UsuarioSingleton.getInstance();
@@ -81,6 +81,8 @@ public class editListasController {
 				ListaReproduccion dummy = new ListaReproduccion(txtNombre,txtDescripción,usuario);
 				if (!aux.mostrarTodos().equals(dummy)) {
 					aux.crear(dummy);
+					this.txtNombre.clear();
+					this.txtDescripción.clear();
 					Alert alert = new Alert(Alert.AlertType.INFORMATION);
 					alert.setHeaderText(null);
 					alert.setTitle("Informacion");

@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="627.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Abe.Spoti.mainScreenController">
    <children>
       <Label alignment="CENTER" prefHeight="24.0" prefWidth="226.0" style="-fx-border-color: #01d512; -fx-border-width: 4;" text="LISTAS DE REPRODUCCIÓN CREADAS" textAlignment="JUSTIFY" />
-      <TableView fx:id="listasPropias" layoutY="26.0" onMouseClicked="#seleccionar" prefHeight="213.0" prefWidth="226.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512;">
+      <TableView fx:id="listasPropias" layoutY="26.0" prefHeight="213.0" prefWidth="226.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512;">
         <columns>
           <TableColumn fx:id="colId" prefWidth="30.400022983551025" text="ID" />
           <TableColumn fx:id="colNombre" prefWidth="66.39996337890625" text="Nombre" />
@@ -26,14 +26,14 @@
       <Button fx:id="buttCLista" layoutX="489.0" layoutY="269.0" mnemonicParsing="false" onAction="#editarListas" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Editor listas" />
       <Button fx:id="buttEditUser" layoutX="490.0" layoutY="231.0" mnemonicParsing="false" onAction="#editarUsuario" prefHeight="27.0" prefWidth="107.0" style="-fx-border-color: #01d512;" text="Editar Usuario" />
       <Button fx:id="buttExit" layoutX="496.0" layoutY="336.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="Salir" />
-      <TableView fx:id="listasTotales" layoutX="226.0" layoutY="26.0" onMouseClicked="#seleccionar" prefHeight="214.0" prefWidth="226.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;">
+      <TableView fx:id="listasTotales" layoutX="226.0" layoutY="26.0" prefHeight="214.0" prefWidth="226.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;">
          <columns>
             <TableColumn fx:id="idPList" prefWidth="59.20001220703125" text="ID" />
             <TableColumn fx:id="nombrePList" prefWidth="108.0" text="Nombre" />
             <TableColumn fx:id="subPList" prefWidth="59.20001220703125" text="Subs" />
          </columns>
       </TableView>
-      <TableView fx:id="listaCanciones" layoutY="266.0" onMouseClicked="#seleccionar" prefHeight="139.0" prefWidth="454.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;">
+      <TableView fx:id="listaCanciones" layoutY="266.0" prefHeight="139.0" prefWidth="454.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;">
          <columns>
             <TableColumn fx:id="idCan" prefWidth="93.60000467300415" text="ID" />
             <TableColumn fx:id="nombreCan" prefWidth="120.79999542236328" text="Nombre" />

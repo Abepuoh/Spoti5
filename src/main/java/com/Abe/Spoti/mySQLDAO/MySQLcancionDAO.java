@@ -24,7 +24,7 @@ public class MySQLcancionDAO extends Cancion implements CancionDAO {
 	private final static String CREATESONG = "INSERT INTO cancion (nombre, duracion ,id_genero,id_disco ) VALUES (?,?,?,?) ";
 	private final static String EDITSONG = "UPDATE cancion SET nombre=?,duracion=?,id_genero=?,id_disco=? WHERE id=?";
 
-	private Connection con;
+	private Connection con= null;;
 
 	public MySQLcancionDAO() {
 		super();

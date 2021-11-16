@@ -27,12 +27,7 @@ public class MySQLdiscoDAO extends Disco implements DiscoDAO {
 	private final static String EDITDISK = "UPDATE disco SET nombre=?,fecha = ?,foto=?, reproducciones =?, id_artista = ?"
 			+ " WHERE id=?";
 
-	private Connection con = null;
-
-	public MySQLdiscoDAO(Connection con) {
-		this.con = con;
-	}
-
+	private Connection con;
 	public MySQLdiscoDAO() {
 		super();
 	}

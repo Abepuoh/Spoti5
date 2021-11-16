@@ -13,7 +13,7 @@ public interface UsuarioDAO extends IDAO<Usuario, Long>{
 	 * @param aux la lista que queremos añadir
 	 * @throws DAOException
 	 */
-	void añadirListaUsuario(Usuario auxU, ListaReproduccion aux) throws DAOException;
+	void añadirListaUsuario( ListaReproduccion aux,Usuario auxU) throws DAOException;
 	
 	/**
 	 * Método que borra una lista de reproduccion de las listas que ya está subscrito 
@@ -36,5 +36,5 @@ public interface UsuarioDAO extends IDAO<Usuario, Long>{
 	 * @return las playList
 	 * @throws DAOException
 	 */
-	List<ListaReproduccion> getPlaylistSub(Usuario aux) throws DAOException;
+	List<Long> getPlaylistSub(Usuario aux) throws DAOException;
 }
