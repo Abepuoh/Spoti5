@@ -15,7 +15,8 @@ import com.Abe.Spoti.model.ListaReproduccion;
 import com.Abe.Spoti.model.Usuario;
 
 public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
-	private final static String LOGINMENU = "SELECT nombre,contraseña FROM usuario WHERE nombre LIKE ? and contraseña LIKE ?";
+	private final static String LOGINMENU = "SELECT nombre,contraseña FROM usuario WHERE nombre LIKE ? AND contraseña LIKE ?";
+	private final static String CHECKlIST = "SELECT id_listaReproduccion, id_usuario FROM lista_usuario WHERE id_listaReproduccion=? AND id_usuario=?";
 	private final static String GETUSERBYID = "SELECT id,nombre, correo ,foto,contraseña FROM usuario WHERE id = ?";
 	private final static String GETUSERS = "SELECT id,nombre, correo ,foto,contraseña FROM usuario";
 	private final static String GETUSERBYNAMEPASS = "SELECT id,nombre, correo ,foto,contraseña FROM usuario WHERE nombre= ? AND contraseña = ?";
@@ -362,6 +363,26 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 		return logResult;
 	}
 	
+	@Override
+	public boolean checkSub(ListaReproduccion aux, Usuario auxU) throws DAOException {
+		boolean logResult = false;
+		try {
+			Connection con = MariaDBConexion.getConexion();
+			PreparedStatement ps = con.prepareStatement(CHECKlIST);
+			ps.setLong(1, aux.getId());
+			ps.setLong(2, auxU.getId());
+			ResultSet rs = ps.executeQuery();
+			if (!rs.next()) {
+				logResult = false;
+			} else {
+				logResult = true;
+			}
+		} catch (SQLException err) {
+			throw new DAOException("Error SQL :", err);
+		}
+		return logResult;
+	}
+	
 	public Usuario convertir(ResultSet rs) throws SQLException {
 		Usuario user = new Usuario();
 		user.setId(rs.getLong("id"));
@@ -371,5 +392,6 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 		user.setContraseña(rs.getString("contraseña"));
 		return user;
 	}
+
 
 }

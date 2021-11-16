@@ -106,15 +106,14 @@ public class mainScreenController {
 	public void suscribirse(ActionEvent event) throws DAOException {
 		MySQLusuarioDAO us = new MySQLusuarioDAO();
 		ListaReproduccion aux = this.listasTotales.getSelectionModel().getSelectedItem();
-		buttSub.setVisible(true);
-		if (aux != null) {
+		if (!us.checkSub(aux, usuario)) {
 			showSub(aux.getNombre());
 			us.añadirListaUsuario(aux, usuario);
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
-			alert.setContentText("No has seleccionado o ya estas suscrito una lista");
+			alert.setContentText("No has seleccionado o ya estas suscrito a una lista");
 			alert.showAndWait();
 		}
 	}
@@ -123,14 +122,15 @@ public class mainScreenController {
 	public void desuscribirse(ActionEvent event) throws DAOException {
 		MySQLusuarioDAO us = new MySQLusuarioDAO();
 		ListaReproduccion aux = this.listasTotales.getSelectionModel().getSelectedItem();
-		if (aux != null) {
-			unSub(aux.getNombre());
-			us.borrarListaUsuario(aux, usuario);
+		if (us.checkSub(aux, usuario)==true) {
+			if(unSub(aux.getNombre())) {
+				us.borrarListaUsuario(aux, usuario);				
+			}
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
-			alert.setContentText("No has seleccionado o ya estas suscrito una lista");
+			alert.setContentText("No has seleccionado o no estas suscrito a esa lista");
 			alert.showAndWait();
 		}
 	}

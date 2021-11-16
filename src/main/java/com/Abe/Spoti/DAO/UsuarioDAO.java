@@ -37,4 +37,12 @@ public interface UsuarioDAO extends IDAO<Usuario, Long>{
 	 * @throws DAOException
 	 */
 	boolean logIn(String nombre, String contraseña) throws DAOException;
+	/**
+	 * Checkea si estas suscrito a una playlist o no
+	 * @param aux la lista que quieres añadir
+	 * @param auxU el usuario que añadiremos
+	 * @return true o false si esta suscrito o no
+	 * @throws DAOException
+	 */
+	boolean checkSub(ListaReproduccion aux,Usuario auxU)throws DAOException;
 }
