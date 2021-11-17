@@ -6,19 +6,19 @@ public class Cancion {
 	
 	protected Long id;
 	protected String nombre;
-	protected int duracion;
+	protected Float duracion;
 	protected Genero genero;
 	protected Disco disk;
 	
 	public Cancion() {
-		this(-1L,"Default",-1,new Genero(),new Disco());
+		this(-1L,"Default",0.0f,new Genero(),new Disco());
 	}
 	
-	public Cancion(String nombre, int duracion, Genero genero, Disco disk) {
+	public Cancion(String nombre, Float duracion, Genero genero, Disco disk) {
 		this(-1L,nombre,duracion,genero,disk);
 	}
 
-	public Cancion(Long id, String nombre, int duracion, Genero genero, Disco disk) {	
+	public Cancion(Long id, String nombre, Float duracion, Genero genero, Disco disk) {	
 		this.id = id;
 		this.nombre = nombre;
 		this.duracion = duracion;
@@ -45,11 +45,11 @@ public class Cancion {
 		this.nombre = nombre;
 	}
 
-	public int getDuracion() {
+	public Float getDuracion() {
 		return duracion;
 	}
 
-	public void setDuracion(int duracion) {
+	public void setDuracion(Float duracion) {
 		this.duracion = duracion;
 	}
 

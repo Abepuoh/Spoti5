@@ -169,8 +169,8 @@ public class cancionesController {
 	@FXML
 	void crearCancion(ActionEvent event) {
 		String nombre = this.txtNombre.getText();
-		String txtDuracion = this.txtNombre.getText();
-		int time = Integer.parseInt(txtDuracion);
+		String txtDuracion = this.txtDuracion.getText();
+		Float time = Float.parseFloat(txtDuracion);
 		Genero auxG = this.CBGenero.getValue();
 		Disco auxD = this.CBDiscos.getValue();
 
@@ -178,7 +178,6 @@ public class cancionesController {
 				&& auxD != null) {
 			try {
 				Cancion dummy = new Cancion(nombre, time, auxG, auxD);
-				if (!auxCD.mostrarTodos().equals(dummy)) {
 					auxCD.crear(dummy);
 					this.txtNombre.clear();
 					this.txtDuracion.clear();
@@ -187,7 +186,6 @@ public class cancionesController {
 					alert.setTitle("Informacion");
 					alert.setContentText("Se ha añadido correctamente");
 					alert.showAndWait();
-				}
 			} catch (DAOException e) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setHeaderText(null);

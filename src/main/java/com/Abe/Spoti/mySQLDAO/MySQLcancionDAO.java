@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Abe.Spoti.DAO.DAOException;
 import com.Abe.Spoti.DAO.CancionDAO;
+import com.Abe.Spoti.DAO.DAOException;
 import com.Abe.Spoti.MariaDBConnection.MariaDBConexion;
 import com.Abe.Spoti.model.Cancion;
 import com.Abe.Spoti.model.Disco;
@@ -31,11 +31,11 @@ public class MySQLcancionDAO extends Cancion implements CancionDAO {
 		super();
 	}
 
-	public MySQLcancionDAO(String nombre, int duracion, Genero genero, Disco disk) {
+	public MySQLcancionDAO(String nombre, Float duracion, Genero genero, Disco disk) {
 		super(nombre, duracion, genero, disk);
 	}
 
-	public MySQLcancionDAO(Long id, String nombre, int duracion, Genero genero, Disco disk) {
+	public MySQLcancionDAO(Long id, String nombre, Float duracion, Genero genero, Disco disk) {
 		super(id, nombre, duracion, genero, disk);
 
 	}
@@ -312,7 +312,7 @@ public class MySQLcancionDAO extends Cancion implements CancionDAO {
 		Genero genero = new MySQLgeneroDAO().mostrarPorId(rs.getLong("id_genero"));
 		cancion.setId(rs.getLong("id"));
 		cancion.setNombre(rs.getString("nombre"));
-		cancion.setDuracion(rs.getInt("duracion"));
+		cancion.setDuracion(rs.getFloat("duracion"));
 		cancion.setDisk(disco);
 		cancion.setGenero(genero);
 		return cancion;
