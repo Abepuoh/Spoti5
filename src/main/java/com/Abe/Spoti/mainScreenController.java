@@ -3,14 +3,14 @@ package com.Abe.Spoti;
 import java.io.IOException;
 import java.util.Optional;
 
-import com.Abe.Spoti.IDAO.DAOException;
-import com.Abe.Spoti.Model.Cancion;
-import com.Abe.Spoti.Model.ListaReproduccion;
-import com.Abe.Spoti.Model.Usuario;
-import com.Abe.Spoti.Model.UsuarioSingleton;
-import com.Abe.Spoti.mySQLDAO.MySQLcancionDAO;
-import com.Abe.Spoti.mySQLDAO.MySQLlistaReproduccionDAO;
-import com.Abe.Spoti.mySQLDAO.MySQLusuarioDAO;
+import com.Abe.Spoti.Model.DataObject.Cancion;
+import com.Abe.Spoti.Model.DataObject.ListaReproduccion;
+import com.Abe.Spoti.Model.DataObject.Usuario;
+import com.Abe.Spoti.Model.DataObject.UsuarioSingleton;
+import com.Abe.Spoti.Model.IDAO.DAOException;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLcancionDAO;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLlistaReproduccionDAO;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLusuarioDAO;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

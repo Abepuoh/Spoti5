@@ -1,7 +1,7 @@
 package com.Abe.Spoti;
 
-import com.Abe.Spoti.Model.Cancion;
-import com.Abe.Spoti.mySQLDAO.MySQLcancionDAO;
+import com.Abe.Spoti.Model.DataObject.Cancion;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLcancionDAO;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

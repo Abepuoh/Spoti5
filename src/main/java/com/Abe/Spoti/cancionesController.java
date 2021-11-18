@@ -2,17 +2,17 @@ package com.Abe.Spoti;
 
 import java.util.Optional;
 
-import com.Abe.Spoti.IDAO.DAOException;
-import com.Abe.Spoti.Model.Cancion;
-import com.Abe.Spoti.Model.Disco;
-import com.Abe.Spoti.Model.Genero;
-import com.Abe.Spoti.Model.ListaReproduccion;
-import com.Abe.Spoti.Model.Usuario;
-import com.Abe.Spoti.Model.UsuarioSingleton;
-import com.Abe.Spoti.mySQLDAO.MySQLcancionDAO;
-import com.Abe.Spoti.mySQLDAO.MySQLdiscoDAO;
-import com.Abe.Spoti.mySQLDAO.MySQLgeneroDAO;
-import com.Abe.Spoti.mySQLDAO.MySQLlistaReproduccionDAO;
+import com.Abe.Spoti.Model.DataObject.Cancion;
+import com.Abe.Spoti.Model.DataObject.Disco;
+import com.Abe.Spoti.Model.DataObject.Genero;
+import com.Abe.Spoti.Model.DataObject.ListaReproduccion;
+import com.Abe.Spoti.Model.DataObject.Usuario;
+import com.Abe.Spoti.Model.DataObject.UsuarioSingleton;
+import com.Abe.Spoti.Model.IDAO.DAOException;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLcancionDAO;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLdiscoDAO;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLgeneroDAO;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLlistaReproduccionDAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

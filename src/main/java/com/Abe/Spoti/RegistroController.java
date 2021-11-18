@@ -1,8 +1,8 @@
 package com.Abe.Spoti;
 
-import com.Abe.Spoti.IDAO.DAOException;
-import com.Abe.Spoti.Model.Usuario;
-import com.Abe.Spoti.mySQLDAO.MySQLusuarioDAO;
+import com.Abe.Spoti.Model.DataObject.Usuario;
+import com.Abe.Spoti.Model.IDAO.DAOException;
+import com.Abe.Spoti.Model.mySQLDAO.MySQLusuarioDAO;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
