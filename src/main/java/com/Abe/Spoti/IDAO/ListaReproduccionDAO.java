@@ -1,10 +1,10 @@
-package com.Abe.Spoti.DAO;
+package com.Abe.Spoti.IDAO;
 
 import java.util.List;
 
-import com.Abe.Spoti.model.Cancion;
-import com.Abe.Spoti.model.ListaReproduccion;
-import com.Abe.Spoti.model.Usuario;
+import com.Abe.Spoti.Model.Cancion;
+import com.Abe.Spoti.Model.ListaReproduccion;
+import com.Abe.Spoti.Model.Usuario;
 
 public interface ListaReproduccionDAO extends IDAO<ListaReproduccion, Long>{
 	

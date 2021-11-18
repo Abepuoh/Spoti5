@@ -1,4 +1,4 @@
-package com.Abe.Spoti.DAO;
+package com.Abe.Spoti.IDAO;
 
 import java.util.List;
 

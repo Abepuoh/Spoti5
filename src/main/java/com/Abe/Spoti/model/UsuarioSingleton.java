@@ -1,4 +1,4 @@
-package com.Abe.Spoti.model;
+package com.Abe.Spoti.Model;
 
 public class UsuarioSingleton {
 

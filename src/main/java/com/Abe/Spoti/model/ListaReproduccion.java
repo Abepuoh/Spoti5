@@ -1,4 +1,4 @@
-package com.Abe.Spoti.model;
+package com.Abe.Spoti.Model;
 
 import java.util.ArrayList;
 import java.util.List;

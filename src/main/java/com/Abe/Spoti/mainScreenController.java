@@ -3,11 +3,11 @@ package com.Abe.Spoti;
 import java.io.IOException;
 import java.util.Optional;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.model.Cancion;
-import com.Abe.Spoti.model.ListaReproduccion;
-import com.Abe.Spoti.model.Usuario;
-import com.Abe.Spoti.model.UsuarioSingleton;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.Model.Cancion;
+import com.Abe.Spoti.Model.ListaReproduccion;
+import com.Abe.Spoti.Model.Usuario;
+import com.Abe.Spoti.Model.UsuarioSingleton;
 import com.Abe.Spoti.mySQLDAO.MySQLcancionDAO;
 import com.Abe.Spoti.mySQLDAO.MySQLlistaReproduccionDAO;
 import com.Abe.Spoti.mySQLDAO.MySQLusuarioDAO;
@@ -91,34 +91,45 @@ public class mainScreenController {
 	protected static ObservableList<ListaReproduccion> listasPropiasU = FXCollections.observableArrayList();
 
 	@FXML
-	public void initialize() throws DAOException {
+	public void initialize() {
 
 		UsuarioSingleton transfer = UsuarioSingleton.getInstance();
 		usuario = transfer.getUser();
-		cancionLista.setAll(cDao.mostrarTodos());
-		ListadeListas.setAll(lDao.mostrarTodos());
-		listasPropiasU.setAll(lDao.mostrarPorCreador(usuario));
-		colocarInfo();
+		try {
+			cancionLista.setAll(cDao.mostrarTodos());
+			ListadeListas.setAll(lDao.mostrarTodos());
+			listasPropiasU.setAll(lDao.mostrarPorCreador(usuario));
+			colocarInfo();
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
+	
 	/**
 	 * Metodo que te suscribe a una lista de reproduccion
 	 * @param event
 	 * @throws DAOException
 	 */
 	@FXML
-	public void suscribirse(ActionEvent event) throws DAOException {
+	public void suscribirse(ActionEvent event) {
 		MySQLusuarioDAO us = new MySQLusuarioDAO();
 		ListaReproduccion aux = this.listasTotales.getSelectionModel().getSelectedItem();
-		if (!us.checkSub(aux, usuario)) {
-			showSub(aux.getNombre());
-			us.añadirListaUsuario(aux, usuario);
-		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error");
-			alert.setContentText("No has seleccionado o ya estas suscrito a una lista");
-			alert.showAndWait();
+		try {
+			if (!us.checkSub(aux, usuario)) {
+				showSub(aux.getNombre());
+				us.añadirListaUsuario(aux, usuario);
+			} else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("No has seleccionado o ya estas suscrito a una lista");
+				alert.showAndWait();
+			}
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -127,19 +138,24 @@ public class mainScreenController {
 	 * @throws DAOException
 	 */
 	@FXML
-	public void desuscribirse(ActionEvent event) throws DAOException {
+	public void desuscribirse(ActionEvent event) {
 		MySQLusuarioDAO us = new MySQLusuarioDAO();
 		ListaReproduccion aux = this.listasTotales.getSelectionModel().getSelectedItem();
-		if (us.checkSub(aux, usuario)==true) {
-			if(unSub(aux.getNombre())) {
-				us.borrarListaUsuario(aux, usuario);				
+		try {
+			if (us.checkSub(aux, usuario)==true) {
+				if(unSub(aux.getNombre())) {
+					us.borrarListaUsuario(aux, usuario);				
+				}
+			} else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("No has seleccionado o no estas suscrito a esa lista");
+				alert.showAndWait();
 			}
-		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error");
-			alert.setContentText("No has seleccionado o no estas suscrito a esa lista");
-			alert.showAndWait();
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -148,7 +164,7 @@ public class mainScreenController {
 	 * @throws DAOException
 	 */
 	@FXML
-	public void editarListas(ActionEvent event) throws DAOException {
+	public void editarListas(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("editarListas.fxml"));
 		Parent modal;
 		try {
@@ -160,8 +176,13 @@ public class mainScreenController {
 			modalStage.setScene(modalScene);
 			modalStage.showAndWait();
 			MySQLlistaReproduccionDAO aux = new MySQLlistaReproduccionDAO();
-			ListadeListas.setAll(aux.mostrarTodos());
-			listasPropiasU.setAll(aux.mostrarPorCreador(usuario));
+			try {
+				ListadeListas.setAll(aux.mostrarTodos());
+				listasPropiasU.setAll(aux.mostrarPorCreador(usuario));
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			modalStage.setResizable(false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -174,7 +195,7 @@ public class mainScreenController {
 	 * @throws DAOException
 	 */
 	@FXML
-	public void editarCancion(ActionEvent event) throws DAOException {
+	public void editarCancion(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("cancionesController.fxml"));
 		Parent modal;
 		try {
@@ -185,7 +206,12 @@ public class mainScreenController {
 			Scene modalScene = new Scene(modal);
 			modalStage.setScene(modalScene);
 			modalStage.showAndWait();
-			cancionLista.setAll(cDao.mostrarTodos());
+			try {
+				cancionLista.setAll(cDao.mostrarTodos());
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			modalStage.setResizable(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

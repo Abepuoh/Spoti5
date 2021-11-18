@@ -1,6 +1,6 @@
-package com.Abe.Spoti.DAO;
+package com.Abe.Spoti.IDAO;
 
-import com.Abe.Spoti.model.Artista;
+import com.Abe.Spoti.Model.Artista;
 
 public interface ArtistaDAO extends IDAO<Artista,Long>{
 	

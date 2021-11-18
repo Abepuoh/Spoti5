@@ -1,9 +1,10 @@
-package com.Abe.Spoti.DAO;
+package com.Abe.Spoti.IDAO;
 
 import java.util.List;
 
-import com.Abe.Spoti.model.Cancion;
-import com.Abe.Spoti.model.Genero;
+import com.Abe.Spoti.Model.Cancion;
+import com.Abe.Spoti.Model.Genero;
+import com.Abe.Spoti.Model.ListaReproduccion;
 
 public interface CancionDAO extends IDAO<Cancion, Long>{
 	
@@ -20,4 +21,13 @@ public interface CancionDAO extends IDAO<Cancion, Long>{
 	 * @throws DAOException
 	 */
 	Cancion mostrarPorNombre(String name) throws DAOException;
+	/**
+	 * Metodo que muestra una lista de canciones de una playlist.
+	 * @param lista contenedora de las canciones
+	 * @return una lista de canciones
+	 * @throws DAOException
+	 */
+	 List<Cancion> mostrarTodasEnPlaylist(ListaReproduccion lista) throws DAOException;
+	
+	
 }

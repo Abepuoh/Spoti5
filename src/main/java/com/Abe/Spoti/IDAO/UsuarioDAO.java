@@ -1,7 +1,7 @@
-package com.Abe.Spoti.DAO;
+package com.Abe.Spoti.IDAO;
 
-import com.Abe.Spoti.model.ListaReproduccion;
-import com.Abe.Spoti.model.Usuario;
+import com.Abe.Spoti.Model.ListaReproduccion;
+import com.Abe.Spoti.Model.Usuario;
 
 public interface UsuarioDAO extends IDAO<Usuario, Long>{
 	

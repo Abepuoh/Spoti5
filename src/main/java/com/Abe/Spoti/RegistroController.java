@@ -1,7 +1,7 @@
 package com.Abe.Spoti;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.model.Usuario;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.Model.Usuario;
 import com.Abe.Spoti.mySQLDAO.MySQLusuarioDAO;
 
 import javafx.event.ActionEvent;

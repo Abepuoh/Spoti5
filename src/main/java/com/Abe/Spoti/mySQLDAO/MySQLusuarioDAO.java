@@ -8,11 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.DAO.UsuarioDAO;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.IDAO.UsuarioDAO;
 import com.Abe.Spoti.MariaDBConnection.MariaDBConexion;
-import com.Abe.Spoti.model.ListaReproduccion;
-import com.Abe.Spoti.model.Usuario;
+import com.Abe.Spoti.Model.ListaReproduccion;
+import com.Abe.Spoti.Model.Usuario;
 
 public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 	private final static String LOGINMENU = "SELECT nombre,contraseña FROM usuario WHERE nombre LIKE ? AND contraseña LIKE ?";
@@ -22,7 +22,7 @@ public class MySQLusuarioDAO extends Usuario implements UsuarioDAO {
 	private final static String GETUSERBYNAMEPASS = "SELECT id,nombre, correo ,foto,contraseña FROM usuario WHERE nombre= ? AND contraseña = ?";
 	private final static String DELETEUSER = "DELETE FROM usuario WHERE id =? ";
 	private final static String CREATEUSER = "INSERT INTO usuario (nombre, correo ,foto,contraseña ) VALUES (?,?,?,?) ";
-	private final static String EDITUSER = "UPDATE usuario SET nombre=?, correo = ?, contraseña=? WHERE id=?";
+	private final static String EDITUSER = "UPDATE usuario SET nombre= ?, correo = ?, contraseña=? WHERE id=?";
 	private final static String AÑADIRPLAYLIST = "INSERT INTO lista_usuario (id_listaReproduccion, id_usuario) VALUES (?,?)";
 	private final static String BORRARPLAYLIST ="DELETE FROM lista_usuario WHERE id_listaReproduccion=? AND id_usuario=?";
 

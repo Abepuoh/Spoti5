@@ -8,6 +8,6 @@ module com.Abe.Spoti {
 
 	
     opens com.Abe.Spoti to javafx.fxml;
-    opens com.Abe.Spoti.model to javafx.base;
+    opens com.Abe.Spoti.Model to javafx.base;
     exports com.Abe.Spoti;
 }

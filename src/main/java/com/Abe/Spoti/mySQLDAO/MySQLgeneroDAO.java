@@ -8,10 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.DAO.GeneroDAO;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.IDAO.GeneroDAO;
 import com.Abe.Spoti.MariaDBConnection.MariaDBConexion;
-import com.Abe.Spoti.model.Genero;
+import com.Abe.Spoti.Model.Genero;
 
 public class MySQLgeneroDAO extends Genero implements GeneroDAO {
 

@@ -2,9 +2,9 @@ package com.Abe.Spoti;
 
 import java.util.Optional;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.model.Usuario;
-import com.Abe.Spoti.model.UsuarioSingleton;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.Model.Usuario;
+import com.Abe.Spoti.Model.UsuarioSingleton;
 import com.Abe.Spoti.mySQLDAO.MySQLusuarioDAO;
 
 import javafx.event.ActionEvent;
@@ -17,54 +17,62 @@ import javafx.stage.Stage;
 
 public class editUsuarioController {
 
-    @FXML
-    private Button buttEdit;
+	@FXML
+	private Button buttEdit;
 
-    @FXML
-    private Button buttExit;
+	@FXML
+	private Button buttExit;
 
-    @FXML
-    private TextField textContraseña;
+	@FXML
+	private TextField textContraseña;
 
-    @FXML
-    private TextField txtCorreo;
+	@FXML
+	private TextField txtCorreo;
 
-    @FXML
-    private TextField txtNombre;
-    
-    Usuario usuario;
-    
-    @FXML
+	@FXML
+	private TextField txtNombre;
+
+	Usuario usuario;
+
+	@FXML
 	public void initialize() {
-    	UsuarioSingleton transfer = UsuarioSingleton.getInstance();
+		UsuarioSingleton transfer = UsuarioSingleton.getInstance();
 		usuario = transfer.getUser();
 	}
-    /** 
-     * Método que nos permite cambiar los parámetros del usuario con el que nos hemos logueado
-     * @param event
-     * @throws DAOException
-     */
-    @FXML
-    void editarUsuario(ActionEvent event) throws DAOException {
-    	String nombre = this.txtNombre.getText();
+
+	/**
+	 * Método que nos permite cambiar los parámetros del usuario con el que nos
+	 * hemos logueado
+	 * 
+	 * @param event
+	 * @throws DAOException
+	 */
+	@FXML
+	void editarUsuario(ActionEvent event) {
+		String nombre = this.txtNombre.getText();
 		String mail = this.txtCorreo.getText();
 		String contraseña = this.textContraseña.getText();
-		
-		Usuario auxUS = new Usuario(usuario.getId(),nombre, contraseña, mail, usuario.getFoto());
-		
+
+		Usuario auxUS = new Usuario(usuario.getId(), nombre, contraseña, mail, usuario.getFoto());
+
 		MySQLusuarioDAO aux = new MySQLusuarioDAO();
 
 		if (!this.txtNombre.getText().trim().isEmpty() && !this.textContraseña.getText().trim().isEmpty()
 				&& !this.txtCorreo.getText().trim().isEmpty()) {
-			
-			if (usuario.getId()==auxUS.getId()) {
-				System.out.println(auxUS);
-				aux.modificar(auxUS);
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setTitle("Informacion");
-				alert.setContentText("Se ha añadido correctamente");
-				alert.showAndWait();
+
+			if (usuario.getId() == auxUS.getId()) {
+				try {
+					aux.modificar(auxUS);
+					Alert alert = new Alert(Alert.AlertType.INFORMATION);
+					alert.setHeaderText(null);
+					alert.setTitle("Informacion");
+					alert.setContentText("Se ha añadido correctamente");
+					alert.showAndWait();
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			} else {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setHeaderText(null);
@@ -82,8 +90,9 @@ public class editUsuarioController {
 		}
 	}
 
-    /**
+	/**
 	 * Metodo que devuelve true o false usado para confirmar una accion
+	 * 
 	 * @param nombre de la cancion
 	 * @return
 	 */
@@ -99,8 +108,8 @@ public class editUsuarioController {
 			return false;
 		}
 	}
-	
-    @FXML
+
+	@FXML
 	private void exit(ActionEvent event) {
 		Stage stage = (Stage) this.buttExit.getScene().getWindow();
 		stage.close();

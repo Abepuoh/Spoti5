@@ -2,13 +2,13 @@ package com.Abe.Spoti;
 
 import java.util.Optional;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.model.Cancion;
-import com.Abe.Spoti.model.Disco;
-import com.Abe.Spoti.model.Genero;
-import com.Abe.Spoti.model.ListaReproduccion;
-import com.Abe.Spoti.model.Usuario;
-import com.Abe.Spoti.model.UsuarioSingleton;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.Model.Cancion;
+import com.Abe.Spoti.Model.Disco;
+import com.Abe.Spoti.Model.Genero;
+import com.Abe.Spoti.Model.ListaReproduccion;
+import com.Abe.Spoti.Model.Usuario;
+import com.Abe.Spoti.Model.UsuarioSingleton;
 import com.Abe.Spoti.mySQLDAO.MySQLcancionDAO;
 import com.Abe.Spoti.mySQLDAO.MySQLdiscoDAO;
 import com.Abe.Spoti.mySQLDAO.MySQLgeneroDAO;
@@ -71,14 +71,18 @@ public class cancionesController {
 	protected ObservableList<Disco> auxDiscos;
 	protected ObservableList<Genero> auxGenero;
 
-	public void initialize() throws DAOException {
+	public void initialize()  {
 		UsuarioSingleton transfer = UsuarioSingleton.getInstance();
 		usuario = transfer.getUser();
-		auxL = FXCollections.observableArrayList(auxLR.mostrarPorCreador(usuario));
-		auxC = FXCollections.observableArrayList(auxCD.mostrarTodos());
-		auxDiscos = FXCollections.observableArrayList(auxD.mostrarTodos());
-		auxGenero = FXCollections.observableArrayList(auxG.mostrarTodos());
-
+		try {
+			auxL = FXCollections.observableArrayList(auxLR.mostrarPorCreador(usuario));
+			auxC = FXCollections.observableArrayList(auxCD.mostrarTodos());
+			auxDiscos = FXCollections.observableArrayList(auxD.mostrarTodos());
+			auxGenero = FXCollections.observableArrayList(auxG.mostrarTodos());
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		CBlistas.setItems(auxL);
 		CBCancion.setItems(auxC);
 		CBGenero.setItems(auxGenero);
@@ -90,18 +94,31 @@ public class cancionesController {
 	 * @throws DAOException
 	 */
 	@FXML
-	void ACancion(ActionEvent event) throws DAOException {
+	void ACancion(ActionEvent event) {
 		ListaReproduccion dummy = this.CBlistas.getValue();
 		Cancion aux = this.CBCancion.getValue();
-		if (!auxLR.checkSong(aux, dummy)) {
-			showAñadir(aux.getNombre());
-			auxLR.añadirCancion(aux, dummy);
-		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error");
-			alert.setContentText("Ya está en tu playList tienes que elegir otra lista");
-			alert.showAndWait();
+		try {
+			if(dummy != null) {	
+				if (!auxLR.checkSong(aux, dummy)) {
+					showAñadir(aux.getNombre());
+					auxLR.añadirCancion(aux, dummy);
+				} else {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setHeaderText(null);
+					alert.setTitle("Error");
+					alert.setContentText("Ya está en tu playList tienes que elegir otra lista");
+					alert.showAndWait();
+				}
+			}else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("No puede añadir sino tienes PlayList");
+				alert.showAndWait();
+			}
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -110,18 +127,31 @@ public class cancionesController {
 	 * @throws DAOException
 	 */
 	@FXML
-	void borrarCancionP(ActionEvent event) throws DAOException {
+	void borrarCancionP(ActionEvent event)  {
 		ListaReproduccion dummy = this.CBlistas.getValue();
 		Cancion aux = this.CBCancion.getValue();
-		if (auxLR.checkSong(aux, dummy) == true) {
-			showBorrar(aux.getNombre());
-			auxLR.borrarCancion(aux, dummy);
-		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error");
-			alert.setContentText("Tienes que elegir una canción que aún esté en la playlist");
-			alert.showAndWait();
+		try {
+			if(dummy != null) {	
+			if (auxLR.checkSong(aux, dummy) == true) {
+				showBorrar(aux.getNombre());
+				auxLR.borrarCancion(aux, dummy);
+			} else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("Tienes que elegir una canción que aún esté en la playlist");
+				alert.showAndWait();
+			}
+			}else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("No puede borrar sino tienes PlayList");
+				alert.showAndWait();
+			}
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	/** 
@@ -130,29 +160,33 @@ public class cancionesController {
 	 * @throws DAOException
 	 */
 	@FXML
-	void borrarCancion(ActionEvent event) throws DAOException {
+	void borrarCancion(ActionEvent event)  {
 		String nombre = this.txtNombre.getText();
 		if (!this.txtNombre.getText().trim().isEmpty()) {
-			if (auxCD.mostrarPorNombre(nombre) != null) {
-				System.out.println(auxCD.mostrarPorNombre(nombre));
-				if (auxCD.mostrarTodos().contains(auxCD.mostrarPorNombre(nombre))) {
-					Cancion dummy = auxCD.mostrarPorNombre(nombre);
-					if (showBorrar(nombre)) {
-						auxCD.borrar(dummy.getId());
-					}
-				}else{
+			try {
+				if (auxCD.mostrarPorNombre(nombre) != null) {
+					if (auxCD.mostrarTodos().contains(auxCD.mostrarPorNombre(nombre))) {
+						Cancion dummy = auxCD.mostrarPorNombre(nombre);
+						if (showBorrar(nombre)) {
+							auxCD.borrar(dummy.getId());
+						}
+					}else{
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+						alert.setHeaderText(null);
+						alert.setTitle("Error");
+						alert.setContentText("Tienes que elegir una canción que exista");
+						alert.showAndWait();
+					}	
+				} else {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setHeaderText(null);
 					alert.setTitle("Error");
-					alert.setContentText("Tienes que elegir una canción que exista");
+					alert.setContentText("Tienes que introducir el nombre de la canción");
 					alert.showAndWait();
-				}	
-			} else {
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setTitle("Error");
-				alert.setContentText("Tienes que elegir una canción que exista");
-				alert.showAndWait();
+				}
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);

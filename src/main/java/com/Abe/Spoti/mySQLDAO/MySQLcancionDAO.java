@@ -8,12 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Abe.Spoti.DAO.CancionDAO;
-import com.Abe.Spoti.DAO.DAOException;
+import com.Abe.Spoti.IDAO.CancionDAO;
+import com.Abe.Spoti.IDAO.DAOException;
 import com.Abe.Spoti.MariaDBConnection.MariaDBConexion;
-import com.Abe.Spoti.model.Cancion;
-import com.Abe.Spoti.model.Disco;
-import com.Abe.Spoti.model.Genero;
+import com.Abe.Spoti.Model.Cancion;
+import com.Abe.Spoti.Model.Disco;
+import com.Abe.Spoti.Model.Genero;
+import com.Abe.Spoti.Model.ListaReproduccion;
 
 public class MySQLcancionDAO extends Cancion implements CancionDAO {
 
@@ -24,7 +25,8 @@ public class MySQLcancionDAO extends Cancion implements CancionDAO {
 	private final static String DELETESONG = "DELETE FROM cancion WHERE id =? ";
 	private final static String CREATESONG = "INSERT INTO cancion (nombre, duracion ,id_genero,id_disco ) VALUES (?,?,?,?) ";
 	private final static String EDITSONG = "UPDATE cancion SET nombre=?,duracion=?,id_genero=?,id_disco=? WHERE id=?";
-
+	private final String GETALLFROMPLAYLIST = "SELECT id_cancion FROM cancion_lista WHERE id_listaReproduccion = ?";
+	
 	private Connection con= null;;
 
 	public MySQLcancionDAO() {
@@ -305,7 +307,44 @@ public class MySQLcancionDAO extends Cancion implements CancionDAO {
 		}
 		return result;
 	}
-	
+	@Override
+	public List<Cancion> mostrarTodasEnPlaylist(ListaReproduccion lista) throws DAOException {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		List<Cancion> canciones = new ArrayList<>();
+
+		try {
+
+			st = con.prepareStatement(GETALLFROMPLAYLIST);
+			st.setLong(1, lista.getId());
+			rs = st.executeQuery();
+
+			while (rs.next()) {
+				canciones.add(mostrarPorId(rs.getLong("id_cancion")));
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException("Error en SQL", e);
+
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					throw new DAOException("Error en SQL", e2);
+				}
+			}
+			if (st != null) {
+				try {
+					st.close();
+				} catch (Exception e2) {
+					throw new DAOException("Error en SQL", e2);
+				}
+			}
+		}
+		return canciones;
+	}
 	public Cancion convertir(ResultSet rs) throws SQLException, DAOException {
 		Cancion cancion = new Cancion();
 		Disco disco = new MySQLdiscoDAO().mostrarPorId(rs.getLong("id_disco"));

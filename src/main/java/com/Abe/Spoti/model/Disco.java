@@ -1,4 +1,4 @@
-package com.Abe.Spoti.model;
+package com.Abe.Spoti.Model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

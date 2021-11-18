@@ -1,9 +1,9 @@
-package com.Abe.Spoti.DAO;
+package com.Abe.Spoti.IDAO;
 
 import java.util.List;
 
-import com.Abe.Spoti.model.Artista;
-import com.Abe.Spoti.model.Disco;
+import com.Abe.Spoti.Model.Artista;
+import com.Abe.Spoti.Model.Disco;
 
 public interface DiscoDAO extends IDAO<Disco, Long>{
 	

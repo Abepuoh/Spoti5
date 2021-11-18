@@ -8,12 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.DAO.ListaReproduccionDAO;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.IDAO.ListaReproduccionDAO;
 import com.Abe.Spoti.MariaDBConnection.MariaDBConexion;
-import com.Abe.Spoti.model.Cancion;
-import com.Abe.Spoti.model.ListaReproduccion;
-import com.Abe.Spoti.model.Usuario;
+import com.Abe.Spoti.Model.Cancion;
+import com.Abe.Spoti.Model.ListaReproduccion;
+import com.Abe.Spoti.Model.Usuario;
 
 public class MySQLlistaReproduccionDAO extends ListaReproduccion implements ListaReproduccionDAO {
 

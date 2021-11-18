@@ -2,10 +2,10 @@ package com.Abe.Spoti;
 
 import java.util.Optional;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.model.ListaReproduccion;
-import com.Abe.Spoti.model.Usuario;
-import com.Abe.Spoti.model.UsuarioSingleton;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.Model.ListaReproduccion;
+import com.Abe.Spoti.Model.Usuario;
+import com.Abe.Spoti.Model.UsuarioSingleton;
 import com.Abe.Spoti.mySQLDAO.MySQLlistaReproduccionDAO;
 
 import javafx.collections.FXCollections;
@@ -48,7 +48,7 @@ public class editListasController {
   	public void initialize() throws DAOException {
       	UsuarioSingleton transfer = UsuarioSingleton.getInstance();
   		usuario = transfer.getUser();
-  		auxL =  FXCollections.observableArrayList(aux.mostrarTodos());
+  		auxL =  FXCollections.observableArrayList(aux.mostrarPorCreador(usuario));
   		CBlistas.setItems(auxL);
 		
   		
@@ -59,17 +59,22 @@ public class editListasController {
      * @throws DAOException
      */
 	@FXML
-	void borrarLista(ActionEvent event) throws DAOException {
+	void borrarLista(ActionEvent event) {
 		ListaReproduccion dummy = this.CBlistas.getValue();
-		if (dummy!= null && aux.mostrarTodos().contains(dummy)) {
-			showEdit(dummy.getNombre());
-			aux.borrar(dummy.getId());
-		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error");
-			alert.setContentText("Tienes que elegir una lista");
-			alert.showAndWait();
+		try {
+			if (dummy!= null && aux.mostrarTodos().contains(dummy)) {
+				showEdit(dummy.getNombre());
+				aux.borrar(dummy.getId());
+			} else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("Tienes que elegir una lista");
+				alert.showAndWait();
+			}
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	/**

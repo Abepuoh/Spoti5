@@ -10,12 +10,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.DAO.DiscoDAO;
+import com.Abe.Spoti.IDAO.DAOException;
+import com.Abe.Spoti.IDAO.DiscoDAO;
 import com.Abe.Spoti.MariaDBConnection.MariaDBConexion;
-import com.Abe.Spoti.model.Artista;
-import com.Abe.Spoti.model.Cancion;
-import com.Abe.Spoti.model.Disco;
+import com.Abe.Spoti.Model.Artista;
+import com.Abe.Spoti.Model.Cancion;
+import com.Abe.Spoti.Model.Disco;
 
 public class MySQLdiscoDAO extends Disco implements DiscoDAO {
 

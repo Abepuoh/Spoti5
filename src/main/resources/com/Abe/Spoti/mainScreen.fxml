@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="658.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Abe.Spoti.mainScreenController">
    <children>
       <Label alignment="CENTER" prefHeight="24.0" prefWidth="226.0" style="-fx-border-color: #01d512; -fx-border-width: 4;" text="LISTAS DE REPRODUCCIÓN CREADAS" textAlignment="JUSTIFY" />
-      <TableView fx:id="listasPropias" layoutY="26.0" prefHeight="213.0" prefWidth="226.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512;">
+      <TableView fx:id="listasPropias" layoutY="27.0" prefHeight="213.0" prefWidth="226.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512;">
         <columns>
           <TableColumn fx:id="colId" prefWidth="30.400022983551025" text="ID" />
           <TableColumn fx:id="colNombre" prefWidth="66.39996337890625" text="Nombre" />

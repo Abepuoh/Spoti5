@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="475.0" style="-fx-background-color: #cdecdc; -fx-border-width: 3; -fx-border-color: #01d512;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Abe.Spoti.cancionPlaylistController">
+   <children>
+      <Button fx:id="buttExit" layoutX="190.0" layoutY="275.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="95.0" style="-fx-border-color: #01d512;" text="Salir" />
+      <TableView fx:id="listaCanciones" layoutX="9.0" layoutY="74.0" prefHeight="171.0" prefWidth="454.0" style="-fx-background-color: #cdecdc; -fx-border-color: #01d512; -fx-border-width: 3;">
+         <columns>
+            <TableColumn fx:id="idCan" prefWidth="93.60000467300415" text="ID" />
+            <TableColumn fx:id="nombreCan" prefWidth="120.79999542236328" text="Nombre" />
+            <TableColumn fx:id="generoCan" prefWidth="116.0" text="Genero" />
+            <TableColumn fx:id="discoCan" prefWidth="118.39990234375" text="Disco" />
+         </columns>
+      </TableView>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="48.0" prefHeight="26.0" prefWidth="453.0" style="-fx-border-color: #01d512; -fx-border-width: 4;" text="CANCIONES" textAlignment="JUSTIFY" />
+   </children>
+</AnchorPane>

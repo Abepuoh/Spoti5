@@ -8,10 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Abe.Spoti.DAO.DAOException;
-import com.Abe.Spoti.DAO.ArtistaDAO;
+import com.Abe.Spoti.IDAO.ArtistaDAO;
+import com.Abe.Spoti.IDAO.DAOException;
 import com.Abe.Spoti.MariaDBConnection.MariaDBConexion;
-import com.Abe.Spoti.model.Artista;
+import com.Abe.Spoti.Model.Artista;
 
 public class MySQLartistaDAO extends Artista implements ArtistaDAO {
 
